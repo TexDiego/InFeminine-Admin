@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<tk:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+          xmlns:tk="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+          x:Class="InFeminine_Admin.Views.Custom.ColorPicker"
+          NavigationPage.HasNavigationBar="False"
+          CanBeDismissedByTappingOutsideOfPopup="True"
+          Color="Transparent">
+
+    <tk:Popup.Resources>
+
+        <Style TargetType="Entry">
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="VerticalTextAlignment" Value="Center"/>
+        </Style>
+
+    </tk:Popup.Resources>
+
+    <Border
+        Padding="10"
+        Margin="10"
+        StrokeShape="RoundRectangle 15"
+        BackgroundColor="White"
+        StrokeThickness="2"
+        Stroke="Grey"
+        HorizontalOptions="Center"
+        WidthRequest="{Binding BorderWidth}"
+        VerticalOptions="Center">
+
+        <VerticalStackLayout Spacing="10">
+
+            <Label
+                Text="Escolha uma cor"
+                FontSize="20"
+                FontAttributes="Bold"
+                TextColor="Black"
+                HorizontalOptions="Center"
+                Margin="0,0,0,15"/>
+
+            <Grid 
+                ColumnDefinitions="*, Auto" 
+                RowDefinitions="Auto, Auto, Auto" 
+                ColumnSpacing="10">
+
+                <VerticalStackLayout 
+                    Grid.Row="0" 
+                    Grid.Column="0" 
+                    Spacing="-5">
+
+                    <Label 
+                        Text="Vermelho" 
+                        FontAttributes="Bold" 
+                        TextColor="Red"
+                        Margin="15,0"/>
+
+                    <Grid ColumnDefinitions="*, Auto">
+
+                        <Slider 
+                            Grid.Column="0" 
+                            Minimum="0" 
+                            Maximum="255" 
+                            MinimumTrackColor="Red" 
+                            MaximumTrackColor="Red" 
+                            ThumbColor="Red" 
+                            Value="{Binding Red}"/>
+
+                        <Entry 
+                            Grid.Column="1" 
+                            MaxLength="3" 
+                            Keyboard="Numeric" 
+                            FontSize="16" 
+                            TextColor="Red" 
+                            WidthRequest="50"
+                            Text="{Binding RedText}"/>
+
+                    </Grid>
+
+                </VerticalStackLayout>
+
+                <VerticalStackLayout 
+                    Grid.Row="1" 
+                    Grid.Column="0" 
+                    Spacing="-5">
+
+                    <Label 
+                        Text="Verde" 
+                        FontAttributes="Bold" 
+                        TextColor="Green"
+                        Margin="15,0"/>
+
+                    <Grid ColumnDefinitions="*, Auto">
+
+                        <Slider 
+                            Grid.Column="0" 
+                            Minimum="0" 
+                            Maximum="255" 
+                            MinimumTrackColor="Green" 
+                            MaximumTrackColor="Green" 
+                            ThumbColor="Green" 
+                            Value="{Binding Green}"/>
+
+                        <Entry 
+                            Grid.Column="1" 
+                            MaxLength="3" 
+                            Keyboard="Numeric" 
+                            FontSize="16" 
+                            TextColor="Green" 
+                            WidthRequest="50" 
+                            Text="{Binding GreenText}"/>
+
+                    </Grid>
+
+                </VerticalStackLayout>
+
+                <VerticalStackLayout 
+                    Grid.Row="2" 
+                    Grid.Column="0" 
+                    Spacing="-5">
+
+                    <Label 
+                        Text="Azul" 
+                        FontAttributes="Bold" 
+                        TextColor="Blue"
+                        Margin="15,0"/>
+
+                    <Grid ColumnDefinitions="*, Auto">
+
+                        <Slider 
+                            Grid.Column="0" 
+                            Minimum="0" 
+                            Maximum="255" 
+                            MinimumTrackColor="Blue" 
+                            MaximumTrackColor="Blue" 
+                            ThumbColor="Blue" 
+                            Value="{Binding Blue}"/>
+
+                        <Entry 
+                            Grid.Column="1" 
+                            MaxLength="3" 
+                            Keyboard="Numeric" 
+                            FontSize="16" 
+                            TextColor="Blue" 
+                            WidthRequest="50" 
+                            Text="{Binding BlueText}"/>
+
+                    </Grid>
+
+                </VerticalStackLayout>
+
+            </Grid>
+
+            <Border
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                WidthRequest="90"
+                Stroke="{Binding ValidColor}"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 5"
+                Padding="0">
+                
+                <Entry
+                    HorizontalTextAlignment="Center"
+                    VerticalTextAlignment="Center"
+                    IsSpellCheckEnabled="False"
+                    Text="{Binding HexColor}"
+                    MaxLength="7"
+                    Keyboard="Text"
+                    FontSize="14"
+                    TextColor="Black"
+                    CharacterSpacing="1"
+                    FontAttributes="Bold"/>
+                
+            </Border>
+
+            <Border
+                HorizontalOptions="Fill"
+                VerticalOptions="Center"
+                HeightRequest="30"            
+                Stroke="Black"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 5"  
+                Margin="0,0,0,20">
+
+                <BoxView Color="{Binding PreviewColor}"/>
+
+            </Border>
+
+            <Button
+                x:Name="Save"
+                BackgroundColor="LightCoral"
+                Text="Escolher"
+                TextColor="Black"
+                FontSize="14"
+                HeightRequest="40"
+                HorizontalOptions="Fill"
+                Clicked="Save_Clicked"/>
+
+        </VerticalStackLayout>
+
+    </Border>
+
+</tk:Popup>

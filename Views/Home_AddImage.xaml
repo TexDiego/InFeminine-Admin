@@ -1,0 +1,705 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:InFeminine_Admin.Helpers"
+             x:Class="InFeminine_Admin.Views.Home_AddImage"
+             Title="Adicionar imagem"
+             BackgroundColor="White">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:BoolToScaleConverter x:Key="BoolToScaleConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+
+        <VerticalStackLayout>
+            
+            <Button
+                Text="Selecionar Imagem"
+                BackgroundColor="LightCoral"
+                TextColor="Black"
+                Margin="15"
+                Command="{Binding PickImageCommand}" />
+
+            <VerticalStackLayout
+                IsVisible="{Binding HasImage}">
+
+                <Grid
+                    IsVisible="{Binding HasImage}"
+                    ColumnDefinitions="100,*,40,20"
+                    RowDefinitions="*,*,*,*,*,*,*,*,*,*,*"
+                    RowSpacing="0"
+                    ColumnSpacing="0"
+                    Margin="15"
+                    HorizontalOptions="Fill">
+
+                    <!-- width -->
+                    <Label
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        Text="Largura:"
+                        TextColor="Black"
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        VerticalOptions="Center"/>
+
+                    <Slider
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        ThumbColor="LightCoral"
+                        VerticalOptions="Center"
+                        BackgroundColor="White"
+                        Maximum="400"
+                        Minimum="50"
+                        MaximumTrackColor="Black"
+                        MinimumTrackColor="Black"
+                        Value="{Binding ImageWidth, Mode=TwoWay}"/>
+
+                    <Entry
+                        x:Name="WidthEntry"
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        VerticalOptions="Center"
+                        TextColor="Black"
+                        Keyboard="Numeric"
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        MaxLength="3"
+                        HorizontalTextAlignment="Center"
+                        Text="{Binding ImageWidthText, Mode=TwoWay}"/>
+
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="3"
+                        VerticalOptions="Center"
+                        TextColor="Black"
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        HorizontalTextAlignment="Start"
+                        Text="%"/>
+
+                    <!-- height -->
+                    <Label
+                        Grid.Column="0"
+                        Grid.Row="1"
+                        Text="Altura:"
+                        TextColor="Black"
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        VerticalOptions="Center"/>
+
+                    <Slider
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        ThumbColor="LightCoral"
+                        VerticalOptions="Center"
+                        BackgroundColor="White"
+                        Maximum="400"
+                        Minimum="50"
+                        MaximumTrackColor="Black"
+                        MinimumTrackColor="Black"
+                        Value="{Binding ImageHeight, Mode=TwoWay}"/>
+
+                    <Entry
+                        x:Name="HeightEntry"
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        VerticalOptions="Center"
+                        TextColor="Black"
+                        Keyboard="Numeric"
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        MaxLength="3"
+                        HorizontalTextAlignment="Center"
+                        Text="{Binding ImageHeightText, Mode=TwoWay}"/>
+
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="3"
+                        VerticalOptions="Center"
+                        TextColor="Black"
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        HorizontalTextAlignment="Start"
+                        Text="%"/>
+
+                    <!-- rotation -->
+                    <Label
+                        Grid.Column="0"
+                        Grid.Row="2"
+                        Text="Rotação:"
+                        TextColor="Black"
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        VerticalOptions="Center"/>
+
+                    <Slider
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        ThumbColor="LightCoral"
+                        VerticalOptions="Center"
+                        BackgroundColor="White"
+                        Maximum="360"
+                        Minimum="0"
+                        MaximumTrackColor="Black"
+                        MinimumTrackColor="Black"
+                        Value="{Binding ImageRotation}"/>
+
+                    <Entry
+                        Grid.Row="2"
+                        Grid.Column="2"
+                        VerticalOptions="Center"
+                        MaxLength="3"
+                        TextColor="Black"
+                        Keyboard="Numeric"
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        HorizontalTextAlignment="Center"
+                        Text="{Binding ImageRotationText}"/>
+
+                    <Label
+                        Grid.Row="2"
+                        Grid.Column="3"
+                        VerticalOptions="Center"
+                        TextColor="Black"
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        HorizontalTextAlignment="Start"
+                        Text="º"/>
+
+                    <!-- opacity -->
+                    <Label
+                        Grid.Column="0"
+                        Grid.Row="3"
+                        Text="Opacidade:"
+                        TextColor="Black"
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        VerticalOptions="Center"/>
+
+                    <Slider
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        ThumbColor="LightCoral"
+                        VerticalOptions="Center"
+                        BackgroundColor="White"
+                        Maximum="100"
+                        Minimum="10"
+                        MaximumTrackColor="Black"
+                        MinimumTrackColor="Black"
+                        Value="{Binding ImageOpacitySlider}"/>
+
+                    <Entry
+                        Grid.Row="3"
+                        Grid.Column="2"
+                        VerticalOptions="Center"
+                        MaxLength="3"
+                        TextColor="Black"
+                        Keyboard="Numeric"
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        HorizontalTextAlignment="Center"
+                        Text="{Binding ImageOpacityText}"/>
+
+                    <Label
+                        Grid.Row="3"
+                        Grid.Column="3"
+                        VerticalOptions="Center"
+                        TextColor="Black"
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        HorizontalTextAlignment="Start"
+                        Text="%"/>
+
+                    <!-- border -->
+                    <Label
+                        Grid.Column="0"
+                        Grid.Row="4"
+                        Text="Tamanho da borda:"
+                        LineHeight="0.8"
+                        TextColor="Black"
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        VerticalOptions="Center"/>
+
+                    <Slider
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        ThumbColor="LightCoral"
+                        VerticalOptions="Center"
+                        BackgroundColor="White"
+                        Maximum="10"
+                        Minimum="0"
+                        MaximumTrackColor="Black"
+                        MinimumTrackColor="Black"
+                        Value="{Binding StrokeThickness}"/>
+
+                    <Entry
+                        Grid.Row="4"
+                        Grid.Column="2"
+                        VerticalOptions="Center"
+                        MaxLength="3"
+                        TextColor="Black"
+                        Keyboard="Numeric"
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        HorizontalTextAlignment="Center"
+                        Text="{Binding StrokeThicknessText}"/>
+
+                    <Label
+                        Grid.Column="0"
+                        Grid.Row="5"
+                        Text="Curvatura da borda:"
+                        TextColor="Black"
+                        LineHeight="0.8"
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        VerticalOptions="Center"/>
+
+                    <Slider
+                        Grid.Row="5"
+                        Grid.Column="1"
+                        ThumbColor="LightCoral"
+                        VerticalOptions="Center"
+                        BackgroundColor="White"
+                        Maximum="{Binding MaxCornerRadiusValue}"
+                        Minimum="0"
+                        MaximumTrackColor="Black"
+                        MinimumTrackColor="Black"
+                        Value="{Binding CornerRadiusValue}"/>
+
+                    <Entry
+                        Grid.Row="5"
+                        Grid.Column="2"
+                        VerticalOptions="Center"
+                        MaxLength="3"
+                        TextColor="Black"
+                        Keyboard="Numeric"
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        HorizontalTextAlignment="Center"
+                        Text="{Binding CornerRadiusText}"/>                    
+
+                    <!-- Horizontal Alignment -->
+                    <Grid
+                        Grid.Row="6"
+                        Grid.ColumnSpan="4"
+                        RowDefinitions="*,*"
+                        RowSpacing="10"
+                        ColumnSpacing="20"
+                        ColumnDefinitions="auto,auto,auto"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Margin="15,15,15,0">
+                        
+                        <Label
+                            Grid.Row="0"
+                            Grid.ColumnSpan="3"
+                            HorizontalOptions="Center"
+                            Text="Alinhamento"
+                            FontSize="16"
+                            TextColor="Black"
+                            FontAttributes="Bold"/>
+
+                        <Border
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            VerticalOptions="Center"
+                            HeightRequest="30"
+                            WidthRequest="30"
+                            Padding="4"
+                            Stroke="Black"
+                            StrokeShape="RoundRectangle 5"
+                            StrokeThickness="2">
+
+                            <ImageButton
+                                VerticalOptions="Center"
+                                Source="arrow.png"
+                                Rotation="-90"
+                                Command="{Binding LeftAlignment}"/>
+
+                        </Border>
+
+                        <Border
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            VerticalOptions="Center"
+                            HeightRequest="30"
+                            WidthRequest="30"
+                            Padding="8"
+                            Stroke="Black"
+                            StrokeShape="RoundRectangle 5"
+                            StrokeThickness="2">
+
+                            <ImageButton
+                                VerticalOptions="Center"
+                                Source="dot.png"
+                                Command="{Binding CenterAlignment}"/>
+
+                        </Border>
+
+                        <Border
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            VerticalOptions="Center"
+                            HeightRequest="30"
+                            WidthRequest="30"
+                            Padding="4"
+                            Stroke="Black"
+                            StrokeShape="RoundRectangle 5"
+                            StrokeThickness="2">
+
+                            <ImageButton
+                                VerticalOptions="Center"
+                                Source="arrow.png"
+                                Rotation="90"
+                                Command="{Binding RightAlignment}"/>
+
+                        </Border>
+
+                    </Grid>
+
+                    <!-- Margins -->
+                    <Grid
+                        Grid.Row="7"
+                        Grid.ColumnSpan="4"
+                        RowDefinitions="*,*,*,*,*,*"
+                        ColumnDefinitions="auto,auto,auto,auto,auto"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Margin="0,15">
+
+                        <Label
+                            Grid.Row="0"
+                            Grid.Column="2"
+                            Text="Margens"
+                            FontSize="16"
+                            TextColor="Black"
+                            FontAttributes="Bold"
+                            Margin="10"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Start"/>
+
+                        <Border
+                            x:Name="ArrowLeft"
+                            Grid.Row="3"
+                            Grid.Column="0"
+                            VerticalOptions="Center"
+                            HeightRequest="30"
+                            WidthRequest="30"
+                            StrokeThickness="2"
+                            Stroke="Black"
+                            StrokeShape="RoundRectangle 5"
+                            Padding="4">
+
+                            <Image
+                                Source="arrow.png"
+                                Rotation="-90"/>
+
+                        </Border>
+
+                        <Entry
+                            x:Name="EntryLeft"
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            Keyboard="Numeric"
+                            MaxLength="3"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"
+                            Text="{Binding LeftMargin}"/>
+
+                        <Border
+                            x:Name="ArrowRight"
+                            Grid.Row="3"
+                            Grid.Column="4"
+                            VerticalOptions="Center"
+                            HeightRequest="30"
+                            WidthRequest="30"
+                            StrokeThickness="2"
+                            Stroke="Black"
+                            StrokeShape="RoundRectangle 5"
+                            Padding="4">
+
+                            <Image
+                                Source="arrow.png"
+                                Rotation="90"/>
+
+                        </Border>
+
+                        <Entry
+                            x:Name="EntryRight"
+                            Grid.Row="3"
+                            Grid.Column="3"
+                            Keyboard="Numeric"
+                            MaxLength="3"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"
+                            Text="{Binding RightMargin}"/>
+
+                        <Border
+                            x:Name="ArrowUp"
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            VerticalOptions="Center"
+                            HeightRequest="30"
+                            WidthRequest="30"
+                            StrokeThickness="2"
+                            Stroke="Black"
+                            StrokeShape="RoundRectangle 5"
+                            Padding="4">
+
+                            <Image
+                                Source="arrow.png"
+                                Rotation="0"/>
+
+                        </Border>
+
+                        <Entry
+                            x:Name="EntryUp"
+                            Grid.Row="2"
+                            Grid.Column="2"
+                            Keyboard="Numeric"
+                            MaxLength="3"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"
+                            Text="{Binding TopMargin}"/>
+
+                        <Border
+                            x:Name="ArrowDown"
+                            Grid.Row="5"
+                            Grid.Column="2"
+                            VerticalOptions="Center"
+                            HeightRequest="30"
+                            WidthRequest="30"
+                            StrokeThickness="2"
+                            Stroke="Black"
+                            StrokeShape="RoundRectangle 5"
+                            Padding="4">
+
+                            <Image
+                                Source="arrow.png"
+                                Rotation="-180"/>
+
+                        </Border>
+
+                        <Entry
+                            x:Name="EntryDown"
+                            Grid.Row="4"
+                            Grid.Column="2"
+                            Keyboard="Numeric"
+                            MaxLength="3"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"
+                            Text="{Binding BottomMargin}"/>
+
+                        <Entry
+                            Grid.Row="3"
+                            Grid.Column="2"
+                            Keyboard="Numeric"
+                            MaxLength="3"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"
+                            Text="{Binding AllMargin}"
+                            Margin="15"/>
+
+                    </Grid>
+
+                </Grid>
+
+                <Grid
+                    ColumnDefinitions="auto,*"
+                    RowDefinitions="*,*"
+                    ColumnSpacing="15"
+                    RowSpacing="15"
+                    Margin="15,0,15,15">
+
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Text="Cor da borda"
+                        FontSize="16"
+                        TextColor="Black"
+                        FontAttributes="Bold"
+                        VerticalOptions="Center"/>
+
+                    <Border
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        HeightRequest="25"
+                        Stroke="Black"
+                        StrokeThickness="1"
+                        BackgroundColor="{Binding StrokeColor}">
+                        
+                        <Button
+                            BackgroundColor="Transparent"
+                            VerticalOptions="Center"
+                            CornerRadius="0"
+                            Command="{Binding PickStrokeColor}"/>
+                        
+                    </Border>
+
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Text="Cor de fundo"
+                        FontSize="16"
+                        TextColor="Black"
+                        FontAttributes="Bold"
+                        VerticalOptions="Center"/>
+
+                    <Border
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        HeightRequest="25"
+                        Stroke="Black"
+                        StrokeThickness="1"
+                        BackgroundColor="{Binding BackGroundColor}">
+
+                        <Button
+                            BackgroundColor="Transparent"
+                            VerticalOptions="Center"
+                            CornerRadius="0"
+                            Command="{Binding PickBackgroundColor}"/>
+
+                    </Border>
+
+                </Grid>                
+
+                <VerticalStackLayout>
+
+                    <Label
+                        Text="Aspecto"
+                        Margin="15,0,0,0"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        TextColor="Black"/>
+
+                    <Button
+                        Margin="15"
+                        BackgroundColor="LightCoral"
+                        Text="Preencher"
+                        TextColor="Black"
+                        Command="{Binding AspectFillCommand}"/>
+
+                    <Button
+                        Margin="15,0,15,0"
+                        BackgroundColor="LightCoral"
+                        Text="Manter proporção"
+                        TextColor="Black"
+                        Command="{Binding AspectFitCommand}"/>
+
+                    <Button
+                        Margin="15"
+                        BackgroundColor="LightCoral"
+                        Text="Esticar"
+                        TextColor="Black"
+                        Command="{Binding FillCommand}"/>
+
+                </VerticalStackLayout>
+
+                <HorizontalStackLayout HorizontalOptions="Fill">
+
+                    <Label
+                        Text="Espelhar"
+                        FontSize="16"
+                        Margin="15"
+                        FontAttributes="Bold"
+                        VerticalOptions="Center"
+                        TextColor="Black"
+                        IsVisible="{Binding HasImage}"/>
+
+                    <Border
+                        HeightRequest="40"
+                        WidthRequest="40"
+                        StrokeShape="RoundRectangle 10"
+                        StrokeThickness="1"
+                        Stroke="Black"
+                        Padding="5"
+                        VerticalOptions="Center">
+                                                
+                        <ImageButton
+                            Source="flip"
+                            Command="{Binding ToggleFlipVerticalCommand}"/>
+                        
+                    </Border>
+
+                    <Border
+                        HeightRequest="40"
+                        WidthRequest="40"
+                        StrokeShape="RoundRectangle 10"
+                        StrokeThickness="1"
+                        Stroke="Black"
+                        Padding="5"
+                        Margin="10,0,0,0"
+                        VerticalOptions="Center">
+
+                        <ImageButton
+                            Source="flip"
+                            Rotation="90"
+                            Command="{Binding ToggleFlipHorizontalCommand}"/>
+
+                    </Border>
+
+                </HorizontalStackLayout>
+
+            </VerticalStackLayout>
+
+            <!-- Image Preview -->
+            <Border
+                HorizontalOptions="{Binding HorizontalAlignment}"
+                WidthRequest="{Binding ImageWidthProportion}"
+                HeightRequest="{Binding ImageHeightProportion}"
+                StrokeThickness="{Binding StrokeThickness}"
+                StrokeShape="{Binding CornerRadius}"
+                Stroke="{Binding StrokeColor}"
+                BackgroundColor="{Binding BackGroundColor}"
+                Margin="{Binding Margin}">
+
+                <Image
+                    Source="{Binding ImageSource}" 
+                    Aspect="{Binding Aspect}"
+                    Rotation="{Binding ImageRotation}"
+                    Opacity="{Binding ImageOpacity}"
+                    IsVisible="{Binding HasImage}"
+                    ScaleX="{Binding FlipHorizontally, Converter={StaticResource BoolToScaleConverter}}"
+                    ScaleY="{Binding FlipVertically, Converter={StaticResource BoolToScaleConverter}}"/>
+
+            </Border>
+
+            <Button
+                VerticalOptions="End"
+                Text="Salvar"
+                BackgroundColor="LightCoral"
+                TextColor="Black"
+                Margin="15"
+                IsVisible="{Binding HasImage}"
+                IsEnabled="{Binding HasImage}"
+                Clicked="OnSave" />
+            
+        </VerticalStackLayout>
+
+    </ScrollView>
+    
+</ContentPage>

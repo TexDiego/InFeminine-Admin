@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InFeminine_Admin.Views.Home"
+             Title="Página inicial"
+             NavigationPage.HasNavigationBar="False">
+
+    <VerticalStackLayout
+        BackgroundColor="{Binding BackGroundColor}">
+
+        <Grid ColumnDefinitions="*,*" Margin="15" ColumnSpacing="15">
+
+            <Button
+                x:Name="AddContent"
+                BackgroundColor="LightCoral"
+                Grid.Column="0"
+                TextColor="Black"
+                FontSize="14"
+                Text="Adicionar conteúdo"
+                Command="{Binding AddContent}"/>
+
+            <Button
+                x:Name="ChangeColor"
+                BackgroundColor="LightCoral"
+                Grid.Column="1"
+                TextColor="Black"
+                FontSize="14"
+                Text="Mudar cor de fundo"
+                Command="{Binding ShowColorPicker}"/>
+
+        </Grid>
+
+        <ScrollView>
+
+            <VerticalStackLayout 
+                x:Name="DynamicContentArea"
+                BindableLayout.ItemsSource="{Binding ContentLayout}"
+                Margin="0"
+                Spacing="-10"
+                Padding="0"/>
+
+        </ScrollView>
+
+    </VerticalStackLayout>
+    
+</ContentPage>
