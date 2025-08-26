@@ -2,11 +2,11 @@ using CommunityToolkit.Maui.Views;
 
 namespace InFeminine_Admin.Views;
 
-public partial class Home_ContentPicker : Popup
+public partial class ContentPicker : Popup
 {
 	private string _selectedItem;
 
-    public Home_ContentPicker()
+    public ContentPicker()
 	{
 		InitializeComponent();
 	}

@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InFeminine_Admin.Views.AddArticle"
+             Title="Adicionar artigo">
+
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+        </Style>
+        
+        <Style TargetType="Button">
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="BorderWidth" Value="2"/>
+            <Setter Property="BorderColor" Value="Black"/>
+        </Style>
+
+        <Style TargetType="Grid">
+            <Setter Property="Margin" Value="15"/>
+            <Setter Property="ColumnSpacing" Value="15"/>
+        </Style>
+
+        <Style TargetType="Border" x:Key="imagesborder">
+            <Setter Property="StrokeThickness" Value="2"/>
+            <Setter Property="Stroke" Value="Black"/>
+            <Setter Property="StrokeShape" Value="RoundRectangle 5"/>
+            <Setter Property="Padding" Value="4"/>
+            <Setter Property="BackgroundColor" Value="Transparent"/>
+            <Setter Property="HeightRequest" Value="40"/>
+            <Setter Property="WidthRequest" Value="40"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
+            <Setter Property="Margin" Value="0"/>
+        </Style>
+
+        <Style TargetType="Entry" x:Key="marginandborder">
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="VerticalTextAlignment" Value="Center"/>
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
+            <Setter Property="Keyboard" Value="Numeric"/>
+            <Setter Property="MaxLength" Value="3"/>
+            <Setter Property="WidthRequest" Value="30"/>
+        </Style>
+    </ContentPage.Resources>
+    
+    <Grid
+        RowDefinitions="*,auto"
+        Margin="0"
+        RowSpacing="0">
+        
+        <ScrollView
+            Grid.Row="0"
+            VerticalOptions="Start"
+            HorizontalOptions="Fill"
+            Margin="0,0,0,50">
+
+            <Grid
+                RowDefinitions="*,*,*,*,*,*,*,*,*,*,*,*,*,*"
+                ColumnDefinitions="100,*,30"
+                RowSpacing="10">
+
+                <Label
+                    Grid.Row="0"
+                    Grid.ColumnSpan="3"
+                    HorizontalOptions="Center"
+                    Text="Propriedades dos botões"
+                    FontSize="20"/>
+
+                <!-- Title -->
+                <Label
+                    Grid.Row="1"
+                    Grid.ColumnSpan="3"
+                    Text="Título"/>
+
+                <Entry
+                    Grid.Row="2"
+                    Grid.ColumnSpan="3"
+                    Text="{Binding Text}"/>
+
+                <Button
+                    Grid.Row="3"
+                    Grid.ColumnSpan="3"
+                    Text="Adicionar Botão"
+                    BackgroundColor="LightCoral"
+                    TextColor="Black"
+                    Command="{Binding AddButtonCommand}" />
+                
+                <!-- Background color -->
+                <Label
+                    Grid.Column="0"
+                    Grid.Row="4"
+                    Margin="0,40,0,0"
+                    Text="Cor de fundo"/>
+
+                <Button
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                    Grid.Row="4"
+                    Margin="0,40,0,0"
+                    BackgroundColor="{Binding BackGroundColor}"
+                    BorderColor="Black"
+                    Command="{Binding ChangeBackGroundColor}"
+                    CommandParameter="{Binding .}"/>
+                
+                <!-- Textcolor -->
+                <Label
+                    Grid.Column="0"
+                    Grid.Row="5"
+                    Text="Cor do texto"/>
+
+                <Button
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                    Grid.Row="5"
+                    BackgroundColor="{Binding TextColor}"
+                    BorderColor="Black"
+                    Command="{Binding ChangeTextColor}"
+                    CommandParameter="{Binding .}"/>
+
+                <!-- Bordercolor -->
+                <Label
+                    Grid.Column="0"
+                    Grid.Row="6"
+                    Text="Cor da borda"/>
+
+                <Button
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                    Grid.Row="6"
+                    BackgroundColor="{Binding BorderColor}"
+                    BorderColor="Black"
+                    Command="{Binding ChangeBorderColor}"
+                    CommandParameter="{Binding .}"/>
+                
+                <!-- Border thickness -->
+                <Label
+                    Grid.Row="7"
+                    Text="Espessura da borda"
+                    LineBreakMode="WordWrap"/>
+
+                <Slider
+                    Grid.Row="7"
+                    Grid.Column="1"
+                    Minimum="0"
+                    Maximum="10"
+                    Value="{Binding BorderWidth}"/>
+
+                <Label
+                    Grid.Row="7"
+                    Grid.Column="2"
+                    Text="{Binding BorderWidth}"
+                    HorizontalOptions="Center"/>
+                
+                <!-- Border radius -->
+                <Label
+                    Grid.Row="8"
+                    Text="Curvatura da borda"
+                    LineBreakMode="WordWrap"/>
+
+                <Slider
+                    Grid.Row="8"
+                    Grid.Column="1"
+                    Minimum="0"
+                    Maximum="100"
+                    Value="{Binding BorderRadius}"/>
+
+                <Label
+                    Grid.Row="8"
+                    Grid.Column="2"
+                    Text="{Binding BorderRadius}"
+                    HorizontalOptions="Center"/>
+
+                <!-- Border radius -->
+                <Label
+                    Grid.Row="9"
+                    Text="Tamanho da fonte"
+                    LineBreakMode="WordWrap"/>
+
+                <Slider
+                    Grid.Row="9"
+                    Grid.Column="1"
+                    Minimum="8"
+                    Maximum="48"
+                    Value="{Binding FontSize}"/>
+
+                <Label
+                    Grid.Row="9"
+                    Grid.Column="2"
+                    Text="{Binding FontSize}"
+                    HorizontalOptions="Center"/>
+
+                <!-- Carousel properties -->
+                <Label
+                    Grid.Row="10"
+                    Grid.ColumnSpan="3"
+                    HorizontalOptions="Center"
+                    Text="Propriedades do carrossel"
+                    FontSize="20"/>
+                
+                <!-- Height -->
+                <Label
+                    Grid.Row="11"
+                    Text="Altura"
+                    LineBreakMode="WordWrap"/>
+
+                <Slider
+                    Grid.Row="11"
+                    Grid.Column="1"
+                    Minimum="100"
+                    Maximum="300"
+                    Value="{Binding Height}"/>
+
+                <Label
+                    Grid.Row="11"
+                    Grid.Column="2"
+                    Text="{Binding Height}"
+                    HorizontalOptions="Center"/>
+                
+                <!-- Is Loop -->
+                <Label
+                    Grid.Row="12"
+                    Grid.Column="0"
+                    Text="Looping"/>
+
+                <CheckBox
+                    x:Name="CarouselLooping_CB"
+                    Grid.Row="12"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                    HorizontalOptions="Start"
+                    IsChecked="{Binding IsLoop, Mode=TwoWay}"
+                    CheckedChanged="CarouselLooping_CB_CheckedChanged"/>
+
+                <!-- Margin -->
+                <Grid
+                    Grid.Row="13"
+                    Grid.ColumnSpan="3"
+                    RowDefinitions="*,auto,auto,auto,auto,auto"
+                    ColumnDefinitions="auto,auto,auto,auto,auto"
+                    HorizontalOptions="Center"
+                    ColumnSpacing="10">
+
+                    <Label
+                        Grid.Row="0"
+                        Grid.ColumnSpan="5"
+                        Text="Margens"
+                        HorizontalOptions="Center"
+                        Margin="0,0,0,10"/>
+
+                    <Border
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        Style="{StaticResource imagesborder}">
+
+                        <Image
+                            Source="arrow.png"
+                            Rotation="-90"/>
+
+                    </Border>
+
+                    <Entry
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Text="{Binding LeftMargin}"
+                        Style="{StaticResource marginandborder}"/>
+
+                    <Border
+                        Grid.Row="3"
+                        Grid.Column="4"
+                        Style="{StaticResource imagesborder}">
+
+                        <Image
+                            Source="arrow.png"
+                            Rotation="90"/>
+
+                    </Border>
+
+                    <Entry
+                        Grid.Row="3"
+                        Grid.Column="3"
+                        Text="{Binding RightMargin}"
+                        Style="{StaticResource marginandborder}"/>
+
+                    <Border
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        Style="{StaticResource imagesborder}">
+
+                        <Image
+                            Source="arrow.png"
+                            Rotation="0"/>
+
+                    </Border>
+
+                    <Entry
+                        Grid.Row="2"
+                        Grid.Column="2"
+                        Text="{Binding TopMargin}"
+                        Style="{StaticResource marginandborder}"/>
+
+                    <Border
+                        Grid.Row="5"
+                        Grid.Column="2"
+                        Style="{StaticResource imagesborder}">
+
+                        <Image
+                            Source="arrow.png"
+                            Rotation="-180"/>
+
+                    </Border>
+
+                    <Entry
+                        Grid.Row="4"
+                        Grid.Column="2"
+                        Text="{Binding BottomMargin}"
+                        Style="{StaticResource marginandborder}"/>
+
+                    <Entry
+                        Grid.Row="3"
+                        Grid.Column="2"
+                        Text="{Binding AllMargin}"
+                        Style="{StaticResource marginandborder}"/>
+
+                </Grid>
+
+            </Grid>
+            
+        </ScrollView>
+
+        <Border
+            Grid.Row="1"
+            BackgroundColor="Transparent"
+            Stroke="Black"
+            StrokeShape="RoundRectangle 15,15,0,0"
+            Margin="-1,0,-1,-1"
+            Padding="0"
+            HeightRequest="300"
+            MaximumHeightRequest="300"
+            MinimumHeightRequest="200"
+            IsVisible="{Binding HasButtons}">
+
+            <Grid
+                RowDefinitions="60,*,70"
+                BackgroundColor="Transparent"
+                Padding="0"
+                Margin="0">
+
+                <Label
+                    Grid.Row="0"
+                    Margin="15,5,15,20"
+                    Text="Pré visualização"
+                    FontSize="24"
+                    HorizontalOptions="Center"/>
+
+                <CarouselView
+                    x:Name="Carousel"
+                    Grid.Row="1"
+                    ItemsSource="{Binding Buttons}"
+                    Loop="{Binding IsLoop, Mode=TwoWay}"
+                    HeightRequest="{Binding Height}"
+                    VerticalOptions="Fill"
+                    Position="{Binding CurrentIndex, Mode=TwoWay}"
+                    BackgroundColor="{Binding PreviewBackgroundColor}"
+                    Margin="{Binding Margin}">
+
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+
+                                <Button
+                                    Text="{Binding Text}"
+                                    ImageSource="{Binding Image}"
+                                    BorderWidth="{Binding BorderWidth}"
+                                    BorderColor="{Binding BorderColor}"
+                                    BackgroundColor="{Binding BackgroundColor}"
+                                    TextColor="{Binding TextColor}"
+                                    FontSize="{Binding FontSize}"
+                                    CornerRadius="{Binding BorderRadius}"
+                                    Margin="0"
+                                    Padding="0"
+                                    Command="{Binding Command}"
+                                    IsEnabled="{Binding IsEnabled}"
+                                    VerticalOptions="Fill"/>
+
+                                <Button
+                                    BorderWidth="{Binding BorderWidth}"
+                                    BorderColor="Transparent"
+                                    BackgroundColor="Transparent"
+                                    CornerRadius="{Binding BorderRadius}"
+                                    Margin="{Binding Margin}"
+                                    Padding="0"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.RemoveButtonCommand}"
+                                    CommandParameter="{Binding .}"
+                                    VerticalOptions="Fill"/>
+
+                            </Grid>
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+
+                </CarouselView>
+
+                <Button
+                    Grid.Row="2"
+                    Margin="15"
+                    Text="Salvar"
+                    BackgroundColor="LightCoral"
+                    BorderWidth="0"
+                    Clicked="OnSave"/>
+
+            </Grid>
+
+        </Border>
+
+    </Grid>
+    
+</ContentPage>
+    
+    

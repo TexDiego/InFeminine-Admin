@@ -1,13 +1,14 @@
 ﻿using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using InFeminine_Admin.Models;
+using InFeminine_Admin.Repositories;
 using InFeminine_Admin.Views.Custom;
 using Microsoft.Maui.Controls.Shapes;
 using System.Windows.Input;
 
 namespace InFeminine_Admin.ViewModels
 {
-    public partial class Home_AddImage_ViewModel : ObservableObject
+    public partial class AddImage_ViewModel : ObservableObject
     {
         [ObservableProperty] private ImageSource? imageSource;
         [ObservableProperty] private bool hasImage;
@@ -45,12 +46,38 @@ namespace InFeminine_Admin.ViewModels
         [ObservableProperty] private Color strokeColor = Colors.Transparent;
         [ObservableProperty] private Color backGroundColor = Colors.Transparent;
 
-        [ObservableProperty] private double leftMargin = 5;
-        [ObservableProperty] private double rightMargin = 5;
-        [ObservableProperty] private double topMargin = 5;
-        [ObservableProperty] private double bottomMargin = 5;
-        [ObservableProperty] private double allMargin = 5;
-        [ObservableProperty] private Thickness margin = new(5, 5, 5, 5);
+        [ObservableProperty] private double leftMargin = 0;
+        [ObservableProperty] private double rightMargin = 0;
+        [ObservableProperty] private double topMargin = 0;
+        [ObservableProperty] private double bottomMargin = 0;
+        [ObservableProperty] private double allMargin = 0;
+        [ObservableProperty] private Thickness margin = new(0, 0, 0, 0);
+
+        [ObservableProperty] private double leftPadding = 0;
+        [ObservableProperty] private double rightPadding = 0;
+        [ObservableProperty] private double topPadding = 0;
+        [ObservableProperty] private double bottomPadding = 0;
+        [ObservableProperty] private double allPadding = 0;
+        [ObservableProperty] private Thickness padding = new Thickness(0, 0, 0, 0);
+
+        [ObservableProperty] private float shadowRadius = 0f;
+        [ObservableProperty] private string shadowRadiusText = "0";
+
+        [ObservableProperty] private Color shadowColor = Colors.Transparent;
+
+        [ObservableProperty] private float shadowOpacity = 0f;
+        [ObservableProperty] private string shadowOpacityText = "0";
+
+        [ObservableProperty] private Point shadowOffset = new Point(0, 0);
+        [ObservableProperty] private double shadowOffsetX = 0;
+        [ObservableProperty] private string shadowOffsetXText = "0";
+        [ObservableProperty] private double shadowOffsetY = 0;
+        [ObservableProperty] private string shadowOffsetYText = "0";
+
+        public Color PreviewBackgroundColor { get => GlobalVariables.BackgroundColor; }
+
+
+
 
         public ICommand PickImageCommand => new Command(async () => await PickImageAsync());
         public ICommand ToggleFlipHorizontalCommand => new Command(() => FlipHorizontally = !FlipHorizontally);
@@ -60,31 +87,50 @@ namespace InFeminine_Admin.ViewModels
         public ICommand AspectFillCommand => new Command(() => Aspect = Aspect.AspectFill);
         public ICommand PickStrokeColor => new Command(async () => await PickStroke());
         public ICommand PickBackgroundColor => new Command(async () => await PickBackground());
+        public ICommand PickShadowColor => new Command(async () => await PickShadowColorAsync());
         public ICommand LeftAlignment => new Command(() => HorizontalAlignment = LayoutOptions.Start);
         public ICommand CenterAlignment => new Command(() => HorizontalAlignment = LayoutOptions.Center);
         public ICommand RightAlignment => new Command(() => HorizontalAlignment = LayoutOptions.End);
         public ICommand FillAlignment => new Command(() => HorizontalAlignment = LayoutOptions.Fill);
 
 
+
+
+
+        // Image functions
         private async Task PickStroke()
         {
-            var popup = new ColorPicker();
+            string stroke = StrokeColor.ToRgbaHex(true);
+            var popup = new ColorPicker(stroke);
             var color = await Application.Current.MainPage.ShowPopupAsync(popup);
 
             if (color is string hexColor)
             {
-                StrokeColor = Color.FromArgb(hexColor);
+                StrokeColor = Color.FromRgba(hexColor);
             }
         }
 
         private async Task PickBackground()
         {
-            var popup = new ColorPicker();
+            string background = BackGroundColor.ToRgbaHex(true);
+            var popup = new ColorPicker(background);
             var color = await Application.Current.MainPage.ShowPopupAsync(popup);
 
             if (color is string hexColor)
             {
-                BackGroundColor = Color.FromArgb(hexColor);
+                BackGroundColor = Color.FromRgba(hexColor);
+            }
+        }
+
+        private async Task PickShadowColorAsync()
+        {
+            string hex = ShadowColor.ToRgbaHex(true);
+            var popup = new ColorPicker(hex);
+            var color = await Application.Current.MainPage.ShowPopupAsync(popup);
+
+            if (color is string hexColor)
+            {
+                ShadowColor = Color.FromRgba(hexColor);
             }
         }
 
@@ -115,6 +161,8 @@ namespace InFeminine_Admin.ViewModels
             }
         }
 
+
+        // Margins properties
         partial void OnAllMarginChanged(double value)
         {
             LeftMargin = value;
@@ -149,6 +197,44 @@ namespace InFeminine_Admin.ViewModels
             Margin = new Thickness(LeftMargin, TopMargin, RightMargin, BottomMargin);
         }
 
+
+        // Padding properties
+        partial void OnAllPaddingChanged(double value)
+        {
+            LeftPadding = value;
+            RightPadding = value;
+            TopPadding = value;
+            BottomPadding = value;
+            Padding = new Thickness(LeftPadding, TopPadding, RightPadding, BottomPadding);
+        }
+
+        partial void OnLeftPaddingChanged(double value)
+        {
+            UpdatePadding();
+        }
+
+        partial void OnRightPaddingChanged(double value)
+        {
+            UpdatePadding();
+        }
+
+        partial void OnTopPaddingChanged(double value)
+        {
+            UpdatePadding();
+        }
+
+        partial void OnBottomPaddingChanged(double value)
+        {
+            UpdatePadding();
+        }
+
+        private void UpdatePadding()
+        {
+            Padding = new Thickness(LeftPadding, TopPadding, RightPadding, BottomPadding);
+        }
+
+
+        // Image proportions functions
         private void UpdateHeightProportion(int value)
         {
             double screenWidth = DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density;
@@ -181,6 +267,8 @@ namespace InFeminine_Admin.ViewModels
             MaxCornerRadiusValue = Math.Max(ImageHeight, ImageWidth) / 2.0;
         }
 
+
+        // Image resizing properties
         partial void OnImageWidthChanged(int value)
         {
             const int min = 50;
@@ -207,7 +295,7 @@ namespace InFeminine_Admin.ViewModels
 
         partial void OnImageWidthTextChanged(string value)
         {
-            int width = string.IsNullOrEmpty(value)? 0 : int.Parse(value);
+            int width = string.IsNullOrEmpty(value) ? 0 : int.Parse(value);
 
             if (width >= 50 && width <= 400)
             {
@@ -225,6 +313,8 @@ namespace InFeminine_Admin.ViewModels
             }
         }
 
+
+        // Image opacity properties
         partial void OnImageOpacitySliderChanged(double value)
         {
             ImageOpacityText = value.ToString();
@@ -233,16 +323,18 @@ namespace InFeminine_Admin.ViewModels
 
         partial void OnImageOpacityTextChanged(string value)
         {
-            double opacity = string.IsNullOrEmpty(value)? 0 : double.Parse(value);
+            double opacity = string.IsNullOrEmpty(value) ? 0 : double.Parse(value);
 
             if (opacity >= 10 && opacity <= 100)
             {
                 ImageOpacity = opacity / 100;
                 ImageOpacityText = opacity.ToString();
                 ImageOpacitySlider = opacity;
-            }            
+            }
         }
 
+
+        // Image rotation properties
         partial void OnImageRotationChanged(int value)
         {
             ImageRotationText = value.ToString();
@@ -258,6 +350,8 @@ namespace InFeminine_Admin.ViewModels
             ImageRotationText = ImageRotation.ToString();
         }
 
+
+        // Corner radius properties
         partial void OnCornerRadiusValueChanged(double value)
         {
             CornerRadius = new RoundRectangle { CornerRadius = value };
@@ -274,6 +368,8 @@ namespace InFeminine_Admin.ViewModels
                 CornerRadiusValue = radius;
         }
 
+
+        // Stroke thickness properties
         partial void OnStrokeThicknessChanged(double value)
         {
             StrokeThicknessText = value.ToString();
@@ -289,10 +385,91 @@ namespace InFeminine_Admin.ViewModels
             StrokeThicknessText = StrokeThickness.ToString();
         }
 
+
+        // Shadow radius properties
+        partial void OnShadowRadiusChanged(float value)
+        {
+            ShadowRadiusText = value.ToString();
+        }
+
+        partial void OnShadowRadiusTextChanged(string value)
+        {
+            float radius = string.IsNullOrEmpty(value) ? 0 : float.Parse(value);
+
+            if (radius >= 0 && radius <= 100)
+            {
+                ShadowRadius = radius;
+            }
+        }
+
+
+        // Shadow opacity properties
+        partial void OnShadowOpacityChanged(float value)
+        {
+            ShadowOpacityText = value.ToString();
+        }
+
+        partial void OnShadowOpacityTextChanged(string value)
+        {
+            float opacity = string.IsNullOrEmpty(value) ? 0 : float.Parse(value);
+
+            if (opacity >= 0 && opacity <= 1)
+            {
+                ShadowOpacity = opacity;
+            }
+        }
+
+
+        // Shadow offset properties
+        partial void OnShadowOffsetXChanged(double value)
+        {
+            ShadowOffsetXText = value.ToString();
+            UpdateShadowOffset();
+        }
+
+        partial void OnShadowOffsetYChanged(double value)
+        {
+            ShadowOffsetYText = value.ToString();
+            UpdateShadowOffset();
+        }
+
+        partial void OnShadowOffsetXTextChanged(string value)
+        {
+            if (string.IsNullOrEmpty(value)) return;
+
+            double thickness = double.Parse(value);
+
+            if (thickness >= -100 && thickness <= 100)
+            {
+                ShadowOffsetX = thickness;
+                UpdateShadowOffset();
+            }
+        }
+
+        partial void OnShadowOffsetYTextChanged(string value)
+        {
+            if (string.IsNullOrEmpty(value)) return;
+
+            double thickness = double.Parse(value);
+
+            if (thickness >= -100 && thickness <= 100)
+            {
+                ShadowOffsetY = thickness;
+                UpdateShadowOffset();
+            }
+        }
+
+        private void UpdateShadowOffset()
+        {
+            ShadowOffset = new Point(ShadowOffsetX, ShadowOffsetY);
+        }
+
+
+        // Image constructor
         public ImageBlock? CreateBlock()
         {
-            return HasImage
-                ? new ImageBlock
+            return HasImage ?
+                new ImageBlock
                 {
                     ImageSource = ImageSource,
                     Aspect = Aspect,
@@ -307,9 +484,89 @@ namespace InFeminine_Admin.ViewModels
                     StrokeColor = StrokeColor,
                     BackGroundColor = BackGroundColor,
                     HorizontalOptions = HorizontalAlignment,
-                    Margin = Margin
+                    Margin = Margin,
+                    Padding = new Thickness(LeftPadding, TopPadding, RightPadding, BottomPadding),
+                    ShadowRadius = ShadowRadius,
+                    ShadowColor = ShadowColor,
+                    ShadowOpacity = ShadowOpacity,
+                    ShadowOffset = ShadowOffset
                 }
                 : null;
+        }
+
+        public void SetBlock(ImageBlock imageBlock)
+        {
+            if (imageBlock is null) return;
+
+            // BÁSICO
+            HasImage = true;
+            ImageSource = imageBlock.ImageSource;
+            Aspect = imageBlock.Aspect;
+            HorizontalAlignment = imageBlock.HorizontalOptions;
+
+            // TAMANHO
+            ImageWidthProportion = imageBlock.Width;
+            ImageWidth = (int)imageBlock.Width;
+            ImageWidthText = ImageWidth.ToString();
+
+            ImageHeightProportion = imageBlock.Height;
+            ImageHeight = (int)imageBlock.Height;
+            ImageHeightText = ImageHeight.ToString();
+
+            // ROTAÇÃO
+            ImageRotation = imageBlock.Rotation;
+            ImageRotationText = imageBlock.Rotation.ToString();
+
+            // OPACIDADE
+            ImageOpacity = imageBlock.Opacity;
+            ImageOpacitySlider = imageBlock.Opacity * 100;
+            ImageOpacityText = ((int)(imageBlock.Opacity * 100)).ToString();
+
+            // FLIP
+            FlipHorizontally = imageBlock.ScaleX < 0;
+            FlipVertically = imageBlock.ScaleY < 0;
+
+            // BORDA
+            StrokeThickness = imageBlock.Thickness;
+            StrokeThicknessText = StrokeThickness.ToString("0");
+
+            StrokeColor = imageBlock.StrokeColor;
+            BackGroundColor = imageBlock.BackGroundColor;
+
+            CornerRadius = imageBlock.CornerRadius;
+            // Tenta extrair o valor numérico do CornerRadius (se aplicável)
+            if (imageBlock.CornerRadius is RoundRectangle roundRect)
+            {
+                CornerRadiusValue = roundRect.CornerRadius.TopLeft;
+                CornerRadiusText = CornerRadiusValue.ToString("0");
+            }
+
+            // MARGIN            
+            LeftMargin = imageBlock.Margin.Left;
+            RightMargin = imageBlock.Margin.Right;
+            TopMargin = imageBlock.Margin.Top;
+            BottomMargin = imageBlock.Margin.Bottom;
+
+            // PADDING            
+            LeftPadding = imageBlock.Padding.Left;
+            RightPadding = imageBlock.Padding.Right;
+            TopPadding = imageBlock.Padding.Top;
+            BottomPadding = imageBlock.Padding.Bottom;
+
+            // SOMBRA
+            ShadowRadius = imageBlock.ShadowRadius;
+            ShadowRadiusText = ShadowRadius.ToString("0");
+
+            ShadowColor = imageBlock.ShadowColor;
+
+            ShadowOpacity = imageBlock.ShadowOpacity;
+            ShadowOpacityText = (ShadowOpacity * 100).ToString("0");
+
+            ShadowOffset = imageBlock.ShadowOffset;
+            ShadowOffsetX = imageBlock.ShadowOffset.X;
+            ShadowOffsetXText = ShadowOffsetX.ToString("0");
+            ShadowOffsetY = imageBlock.ShadowOffset.Y;
+            ShadowOffsetYText = ShadowOffsetY.ToString("0");
         }
     }
 }

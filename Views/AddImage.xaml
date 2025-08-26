@@ -1,0 +1,787 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:InFeminine_Admin.Helpers"
+             x:Class="InFeminine_Admin.Views.AddImage"
+             Title="Adicionar imagem"
+             BackgroundColor="White">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:BoolToScaleConverter x:Key="BoolToScaleConverter"/>
+
+            <Style TargetType="Label">
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="LineHeight" Value="0.8"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+            </Style>
+
+            <Style TargetType="Slider">
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="ThumbColor" Value="LightCoral"/>
+                <Setter Property="MaximumTrackColor" Value="Black"/>
+                <Setter Property="MinimumTrackColor" Value="Black"/>
+            </Style>
+
+            <Style TargetType="Entry">
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="Keyboard" Value="Numeric"/>
+                <Setter Property="MaxLength" Value="3"/>                
+            </Style>
+
+            <Style TargetType="Entry" x:Key="marginandborder">
+                <Setter Property="FontSize" Value="24"/>
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="Keyboard" Value="Numeric"/>
+                <Setter Property="MaxLength" Value="3"/>
+                <Setter Property="WidthRequest" Value="30"/>
+            </Style>
+
+            <Style TargetType="Border" x:Key="imagesborder">
+                <Setter Property="StrokeThickness" Value="2"/>
+                <Setter Property="Stroke" Value="Black"/>
+                <Setter Property="StrokeShape" Value="RoundRectangle 5"/>
+                <Setter Property="Padding" Value="4"/>
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="HeightRequest" Value="40"/>
+                <Setter Property="WidthRequest" Value="40"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="Margin" Value="0"/>
+            </Style>
+
+            <Style TargetType="Border" x:Key="colorborder">
+                <Setter Property="StrokeThickness" Value="2"/>
+                <Setter Property="Stroke" Value="Black"/>
+                <Setter Property="StrokeShape" Value="RoundRectangle 5"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="HeightRequest" Value="30"/>
+                <Setter Property="Margin" Value="0,5"/>
+            </Style>
+
+            <Style TargetType="ImageButton" x:Key="imagebutton">
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+            </Style>
+
+            <Style TargetType="Grid">
+                <Setter Property="HorizontalOptions" Value="Fill"/>
+                <Setter Property="VerticalOptions" Value="Fill"/>
+                <Setter Property="Margin" Value="15"/>
+                <Setter Property="RowSpacing" Value="0"/>
+                <Setter Property="ColumnSpacing" Value="0"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="*, auto" Margin="0">
+
+        <ScrollView Grid.Row="0" Padding="0,0,0,50">
+
+            <VerticalStackLayout HorizontalOptions="Fill"> 
+                
+                <Button
+                    Text="Selecionar Imagem"
+                    BackgroundColor="LightCoral"
+                    TextColor="Black"
+                    Margin="15,15,15,30"
+                    Command="{Binding PickImageCommand}" />
+
+                <VerticalStackLayout
+                    IsVisible="{Binding HasImage}">
+
+                    <!-- Image properties -->
+                    <Grid
+                        ColumnDefinitions="105,*,40,20"
+                        RowDefinitions="*,*,*,*">
+
+                        <!-- width -->
+                        <Label
+                            Grid.Column="0"
+                            Grid.Row="0"
+                            Text="Largura:"/>
+
+                        <Slider
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Maximum="400"
+                            Minimum="50"
+                            Value="{Binding ImageWidth, Mode=TwoWay}"/>
+
+                        <Entry
+                            x:Name="WidthEntry"
+                            Grid.Row="0"
+                            Grid.Column="2"
+                            Text="{Binding ImageWidthText, Mode=TwoWay}"/>
+
+                        <Label
+                            Grid.Row="0"
+                            Grid.Column="3"
+                            Text="%"/>
+
+                        <!-- height -->
+                        <Label
+                            Grid.Column="0"
+                            Grid.Row="1"
+                            Text="Altura:"/>
+
+                        <Slider
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Maximum="400"
+                            Minimum="50"
+                            Value="{Binding ImageHeight, Mode=TwoWay}"/>
+
+                        <Entry
+                            x:Name="HeightEntry"
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            Text="{Binding ImageHeightText, Mode=TwoWay}"/>
+
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="3"
+                            Text="%"/>
+
+                        <!-- rotation -->
+                        <Label
+                            Grid.Column="0"
+                            Grid.Row="2"
+                            Text="Rotação:"/>
+
+                        <Slider
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Maximum="360"
+                            Minimum="0"
+                            Value="{Binding ImageRotation}"/>
+
+                        <Entry
+                            Grid.Row="2"
+                            Grid.Column="2"
+                            Text="{Binding ImageRotationText}"/>
+
+                        <Label
+                            Grid.Row="2"
+                            Grid.Column="3"
+                            Text="º"/>
+
+                        <!-- opacity -->
+                        <Label
+                            Grid.Column="0"
+                            Grid.Row="3"
+                            Text="Opacidade:"/>
+
+                        <Slider
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            Maximum="100"
+                            Minimum="10"
+                            Value="{Binding ImageOpacitySlider}"/>
+
+                        <Entry
+                            Grid.Row="3"
+                            Grid.Column="2"
+                            Text="{Binding ImageOpacityText}"/>
+
+                        <Label
+                            Grid.Row="3"
+                            Grid.Column="3"
+                            VerticalOptions="Center"
+                            TextColor="Black"
+                            FontAttributes="Bold"
+                            FontSize="16"
+                            HorizontalTextAlignment="Start"
+                            Text="%"/>
+                        
+                    </Grid>
+
+                    <!-- Horizontal Alignment -->
+                    <Grid
+                        RowDefinitions="*,*"
+                        ColumnDefinitions="auto,auto,auto"
+                        HorizontalOptions="Center"
+                        ColumnSpacing="20"
+                        RowSpacing="10">
+
+                        <Label
+                            Grid.Row="0"
+                            Grid.ColumnSpan="3"
+                            Text="Alinhamento"
+                            HorizontalOptions="Center"/>
+
+                        <Border
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Style="{StaticResource imagesborder}">
+
+                            <ImageButton
+                                Style="{StaticResource imagebutton}"
+                                Source="arrow.png"
+                                Rotation="-90"
+                                Command="{Binding LeftAlignment}"/>
+
+                        </Border>
+
+                        <Border
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Style="{StaticResource imagesborder}">
+
+                            <ImageButton
+                                Style="{StaticResource imagebutton}"
+                                Source="dot.png"
+                                Command="{Binding CenterAlignment}"/>
+
+                        </Border>
+
+                        <Border
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            Style="{StaticResource imagesborder}">
+
+                            <ImageButton
+                                Style="{StaticResource imagebutton}"
+                                Source="arrow.png"
+                                Rotation="90"
+                                Command="{Binding RightAlignment}"/>
+
+                        </Border>
+
+                    </Grid>
+
+                    <!-- Margin -->
+                    <Grid
+                        RowDefinitions="*,auto,auto,auto,auto,auto"
+                        ColumnDefinitions="auto,auto,auto,auto,auto"
+                        HorizontalOptions="Center"
+                        ColumnSpacing="10">
+
+                        <Label
+                            Grid.Row="0"
+                            Grid.ColumnSpan="5"
+                            Text="Margens externas"
+                            HorizontalOptions="Center"
+                            Margin="0,0,0,10"/>
+
+                        <Border
+                            Grid.Row="3"
+                            Grid.Column="0"
+                            Style="{StaticResource imagesborder}">
+
+                            <Image
+                                Source="arrow.png"
+                                Rotation="-90"/>
+
+                        </Border>
+
+                        <Entry
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            Text="{Binding LeftMargin}"
+                            Style="{StaticResource marginandborder}"/>
+
+                        <Border
+                            Grid.Row="3"
+                            Grid.Column="4"
+                            Style="{StaticResource imagesborder}">
+
+                            <Image
+                                Source="arrow.png"
+                                Rotation="90"/>
+
+                        </Border>
+
+                        <Entry
+                            Grid.Row="3"
+                            Grid.Column="3"
+                            Text="{Binding RightMargin}"
+                            Style="{StaticResource marginandborder}"/>
+
+                        <Border
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            Style="{StaticResource imagesborder}">
+
+                            <Image
+                                Source="arrow.png"
+                                Rotation="0"/>
+
+                        </Border>
+
+                        <Entry
+                            Grid.Row="2"
+                            Grid.Column="2"
+                            Text="{Binding TopMargin}"
+                            Style="{StaticResource marginandborder}"/>
+
+                        <Border
+                            Grid.Row="5"
+                            Grid.Column="2"
+                            Style="{StaticResource imagesborder}">
+
+                            <Image
+                                Source="arrow.png"
+                                Rotation="-180"/>
+
+                        </Border>
+
+                        <Entry
+                            Grid.Row="4"
+                            Grid.Column="2"
+                            Text="{Binding BottomMargin}"
+                            Style="{StaticResource marginandborder}"/>
+
+                        <Entry
+                            Grid.Row="3"
+                            Grid.Column="2"
+                            Text="{Binding AllMargin}"
+                            Style="{StaticResource marginandborder}"/>
+
+                    </Grid>
+
+                    <!-- Padding -->
+                    <Grid
+                        RowDefinitions="*,*,*,*,*,*"
+                        ColumnDefinitions="auto,auto,auto,auto,auto"
+                        HorizontalOptions="Center"
+                        ColumnSpacing="10">
+
+                        <Label
+                            Grid.Row="0"
+                            Grid.ColumnSpan="5"
+                            Text="Margens internas"
+                            HorizontalOptions="Center"
+                            Margin="0,0,0,10"/>
+
+                        <Border
+                            Grid.Row="3"
+                            Grid.Column="0"
+                            Style="{StaticResource imagesborder}">
+
+                            <Image
+                                Source="arrow.png"
+                                Rotation="90"/>
+
+                        </Border>
+
+                        <Entry
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            Text="{Binding LeftPadding}"
+                            Style="{StaticResource marginandborder}"/>
+
+                        <Border
+                            Grid.Row="3"
+                            Grid.Column="4"
+                            Style="{StaticResource imagesborder}">
+
+                            <Image
+                                Source="arrow.png"
+                                Rotation="-90"/>
+
+                        </Border>
+
+                        <Entry
+                            Grid.Row="3"
+                            Grid.Column="3"
+                            Text="{Binding RightPadding}"
+                            Style="{StaticResource marginandborder}"/>
+
+                        <Border
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            Style="{StaticResource imagesborder}">
+
+                            <Image
+                                Source="arrow.png"
+                                Rotation="180"/>
+
+                        </Border>
+
+                        <Entry
+                            Grid.Row="2"
+                            Grid.Column="2"
+                            Text="{Binding TopPadding}"
+                            Style="{StaticResource marginandborder}"/>
+
+                        <Border
+                            Grid.Row="5"
+                            Grid.Column="2"
+                            Style="{StaticResource imagesborder}">
+
+                            <Image
+                                Source="arrow.png"
+                                Rotation="0"/>
+
+                        </Border>
+
+                        <Entry
+                            Grid.Row="4"
+                            Grid.Column="2"
+                            Text="{Binding BottomPadding}"
+                            Style="{StaticResource marginandborder}"/>
+
+                        <Entry
+                            Grid.Row="3"
+                            Grid.Column="2"
+                            Text="{Binding AllPadding}"
+                            Style="{StaticResource marginandborder}"/>
+
+                    </Grid>
+
+                    <!-- Shadow -->
+                    <Label
+                        Text="Sombra"
+                        HorizontalOptions="Center"
+                        Margin="0,20,0,0"/>
+
+                    <Grid
+                        ColumnDefinitions="105,*,40"
+                        RowDefinitions="*,*,*,*,*">
+
+                        <Label
+                            Grid.Column="0"
+                            Grid.Row="0"
+                            Text="Raio:"/>
+
+                        <Slider
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Maximum="5"
+                            Minimum="0"
+                            Value="{Binding ShadowRadius}"/>
+
+                        <Entry
+                            Grid.Row="0"
+                            Grid.Column="2"
+                            Text="{Binding ShadowRadiusText}"/>
+
+                        <Label
+                            Grid.Column="0"
+                            Grid.Row="1"
+                            Text="Opacidade:"/>
+
+                        <Slider
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Maximum="1"
+                            Minimum="0"
+                            Value="{Binding ShadowOpacity}"/>
+
+                        <Entry
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            Text="{Binding ShadowOpacityText}"/>
+
+                        <Label
+                            Grid.Column="0"
+                            Grid.Row="2"
+                            Text="Offset horizontal:"/>
+
+                        <Slider
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Maximum="100"
+                            Minimum="-100"
+                            Value="{Binding ShadowOffsetX}"/>
+
+                        <Entry
+                            Grid.Row="2"
+                            Grid.Column="2"
+                            Text="{Binding ShadowOffsetXText}"/>
+
+                        <Label
+                            Grid.Column="0"
+                            Grid.Row="3"
+                            Text="Offset vertical:"/>
+
+                        <Slider
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            Maximum="100"
+                            Minimum="-100"
+                            Value="{Binding ShadowOffsetY}"/>
+
+                        <Entry
+                            Grid.Row="3"
+                            Grid.Column="2"
+                            Text="{Binding ShadowOffsetYText}"/>
+
+                        <Label
+                            Grid.Column="0"
+                            Grid.Row="4"
+                            Text="Cor:"/>
+
+                        <Border
+                            Grid.Row="4"
+                            Grid.Column="1"
+                            Grid.ColumnSpan="2"
+                            Style="{StaticResource colorborder}"
+                            BackgroundColor="{Binding ShadowColor}">
+
+                            <Button
+                                BackgroundColor="Transparent"
+                                Command="{Binding PickShadowColor}"/>
+
+                        </Border>
+
+                    </Grid>
+
+                    <!-- Border -->
+                    <Label
+                        Text="Borda"
+                        HorizontalOptions="Center"
+                        Margin="0,20,0,0"/>
+
+                    <Grid
+                        ColumnDefinitions="105,*,40"
+                        RowDefinitions="*,*,*,*">
+
+                        <Label
+                            Grid.Column="0"
+                            Grid.Row="0"
+                            Text="Espessura:"/>
+
+                        <Slider
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Maximum="10"
+                            Minimum="0"
+                            Value="{Binding StrokeThickness}"/>
+
+                        <Entry
+                            Grid.Row="0"
+                            Grid.Column="2"
+                            Text="{Binding StrokeThicknessText}"/>
+
+                        <Label
+                            Grid.Column="0"
+                            Grid.Row="1"
+                            Text="Curvatura:"/>
+
+                        <Slider
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Maximum="{Binding MaxCornerRadiusValue}"
+                            Minimum="0"
+                            Value="{Binding CornerRadiusValue}"/>
+
+                        <Entry
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            Text="{Binding CornerRadiusText}"/>
+
+                        <Label
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            Text="Cor da borda"/>
+
+                        <Border
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Grid.ColumnSpan="3"
+                            Style="{StaticResource colorborder}"
+                            BackgroundColor="{Binding StrokeColor}">
+
+                            <Button
+                                BackgroundColor="Transparent"
+                                VerticalOptions="Center"
+                                Command="{Binding PickStrokeColor}"/>
+
+                        </Border>
+
+                        <Label
+                            Grid.Row="3"
+                            Grid.Column="0"
+                            Text="Cor de fundo"/>
+
+                        <Border
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            Grid.ColumnSpan="3"
+                            Style="{StaticResource colorborder}"
+                            BackgroundColor="{Binding BackGroundColor}">
+
+                            <Button
+                                BackgroundColor="Transparent"
+                                VerticalOptions="Center"
+                                CornerRadius="0"
+                                Command="{Binding PickBackgroundColor}"/>
+
+                        </Border>
+
+                    </Grid>
+                    
+                    <!-- Aspect -->
+                    <VerticalStackLayout>
+
+                        <Label
+                            Text="Aspecto"
+                            HorizontalOptions="Center"
+                            Margin="0,20,0,0"/>
+
+                        <Button
+                            Margin="15"
+                            BackgroundColor="LightCoral"
+                            Text="Preencher"
+                            TextColor="Black"
+                            Command="{Binding AspectFillCommand}"/>
+
+                        <Button
+                            Margin="15,0,15,0"
+                            BackgroundColor="LightCoral"
+                            Text="Manter proporção"
+                            TextColor="Black"
+                            Command="{Binding AspectFitCommand}"/>
+
+                        <Button
+                            Margin="15"
+                            BackgroundColor="LightCoral"
+                            Text="Esticar"
+                            TextColor="Black"
+                            Command="{Binding FillCommand}"/>
+
+                    </VerticalStackLayout>
+
+                    <!-- Horizontal and Vertical Flip -->
+                    <HorizontalStackLayout
+                        HorizontalOptions="Fill"
+                        Margin="15,20,15,0">
+
+                        <Label
+                            Text="Espelhar"/>
+
+                        <Border
+                            HeightRequest="40"
+                            WidthRequest="40"
+                            Style="{StaticResource imagesborder}"
+                            Margin="20,0,10,0">
+
+                            <ImageButton
+                                Source="flip"
+                                Command="{Binding ToggleFlipVerticalCommand}"/>
+
+                        </Border>
+
+                        <Border
+                            HeightRequest="40"
+                            WidthRequest="40"
+                            Style="{StaticResource imagesborder}">
+
+                            <ImageButton
+                                Source="flip"
+                                Rotation="90"
+                                Command="{Binding ToggleFlipHorizontalCommand}"/>
+
+                        </Border>
+
+                    </HorizontalStackLayout>
+
+                </VerticalStackLayout>
+                
+            </VerticalStackLayout>
+            
+        </ScrollView>
+
+        <!-- Preview -->
+        <Border
+            Grid.Row="1"
+            BackgroundColor="Transparent"
+            Stroke="Black"
+            StrokeShape="RoundRectangle 15,15,0,0"
+            Margin="-1,0,-1,-1"
+            Padding="0"
+            HeightRequest="250"
+            IsVisible="{Binding HasImage}">
+
+            <Grid
+                RowDefinitions="50,*,70"
+                BackgroundColor="Transparent"
+                Padding="0"
+                Margin="0">
+
+                <Label
+                    Grid.Row="0"
+                    Margin="15,5,15,20"
+                    Text="Pré visualização"
+                    FontSize="24"
+                    HorizontalOptions="Center"/>
+
+                <ScrollView
+                    Grid.Row="1"
+                    HorizontalOptions="{Binding HorizontalAlignment}"
+                    BackgroundColor="{Binding PreviewBackgroundColor}"
+                    VerticalOptions="Fill"
+                    Padding="0"
+                    Margin="0">
+
+                    <VerticalStackLayout
+                        Padding="0"
+                        Margin="0">
+                        
+                        <!-- Image Preview -->
+                        <Border
+                            HorizontalOptions="{Binding HorizontalAlignment}"
+                            WidthRequest="{Binding ImageWidthProportion}"
+                            HeightRequest="{Binding ImageHeightProportion}"
+                            StrokeThickness="{Binding StrokeThickness}"
+                            StrokeShape="{Binding CornerRadius}"
+                            Stroke="{Binding StrokeColor}"
+                            BackgroundColor="{Binding BackGroundColor}"
+                            Margin="{Binding Margin}">
+
+                            <Border.Shadow>
+
+                                <Shadow 
+                                    Opacity="{Binding ShadowOpacity}"
+                                    Radius="{Binding ShadowRadius}"
+                                    Brush="{Binding ShadowColor}"
+                                    Offset="{Binding ShadowOffset}"/>
+
+                            </Border.Shadow>
+
+                            <Image
+                                Source="{Binding ImageSource}" 
+                                Aspect="{Binding Aspect}"
+                                Rotation="{Binding ImageRotation}"
+                                Opacity="{Binding ImageOpacity}"
+                                IsVisible="{Binding HasImage}"
+                                ScaleX="{Binding FlipHorizontally, Converter={StaticResource BoolToScaleConverter}}"
+                                ScaleY="{Binding FlipVertically, Converter={StaticResource BoolToScaleConverter}}"/>
+
+                        </Border>
+
+                    </VerticalStackLayout>
+
+                </ScrollView>
+
+                <Button
+                    Grid.Row="2"
+                    VerticalOptions="End"
+                    Text="Salvar"
+                    BackgroundColor="LightCoral"
+                    TextColor="Black"
+                    Margin="15"
+                    Clicked="OnSave" />
+
+            </Grid>
+            
+        </Border>
+
+    </Grid>
+
+</ContentPage>

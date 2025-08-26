@@ -1,10 +1,11 @@
 ﻿namespace InFeminine_Admin.Interfaces
 {
-    public interface IVisualBlock
+    public interface IPage
     {
-        View BuildView();
+        ContentPage BuildPage();
         Guid Guid { get; }
         Action<IVisualBlock>? ActionRequested { get; set; }
-        View? ViewReference { get; set; }
+        string Title { get; set; }
+        Color BackGroundColor { get; set; }
     }
 }

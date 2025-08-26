@@ -1,0 +1,802 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InFeminine_Admin.Views.AddText"
+             Title="Adicionar texto"
+             BackgroundColor="White">
+
+    <ContentPage.Resources>
+        
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="LineHeight" Value="0.8"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+        </Style>
+
+        <Style TargetType="Label" x:Key="title">
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="LineHeight" Value="0.8"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
+            <Setter Property="Margin" Value="0,20,0,10"/>
+        </Style>
+
+        <Style TargetType="Slider">
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="BackgroundColor" Value="Transparent"/>
+            <Setter Property="ThumbColor" Value="LightCoral"/>
+            <Setter Property="MaximumTrackColor" Value="Black"/>
+            <Setter Property="MinimumTrackColor" Value="Black"/>
+        </Style>
+
+        <Style TargetType="Entry">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="VerticalTextAlignment" Value="Center"/>
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="Keyboard" Value="Numeric"/>
+            <Setter Property="MaxLength" Value="3"/>
+        </Style>
+
+        <Style TargetType="Entry" x:Key="marginandborder">
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="VerticalTextAlignment" Value="Center"/>
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
+            <Setter Property="Keyboard" Value="Numeric"/>
+            <Setter Property="MaxLength" Value="3"/>
+            <Setter Property="WidthRequest" Value="30"/>
+        </Style>
+
+        <Style TargetType="Border" x:Key="imagesborder">
+            <Setter Property="StrokeThickness" Value="3"/>
+            <Setter Property="Stroke" Value="Black"/>
+            <Setter Property="StrokeShape" Value="RoundRectangle 10"/>
+            <Setter Property="Padding" Value="4"/>
+            <Setter Property="BackgroundColor" Value="Transparent"/>
+            <Setter Property="HeightRequest" Value="40"/>
+            <Setter Property="WidthRequest" Value="40"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+
+        <Style TargetType="Border" x:Key="colorborder">
+            <Setter Property="StrokeThickness" Value="2"/>
+            <Setter Property="Stroke" Value="Black"/>
+            <Setter Property="StrokeShape" Value="RoundRectangle 5"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="HeightRequest" Value="40"/>
+            <Setter Property="Margin" Value="0,5"/>
+        </Style>
+
+        <Style TargetType="ImageButton" x:Key="imagebutton">
+            <Setter Property="BackgroundColor" Value="Transparent"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+        </Style>
+
+        <Style TargetType="Grid">
+            <Setter Property="HorizontalOptions" Value="Fill"/>
+            <Setter Property="VerticalOptions" Value="Fill"/>
+            <Setter Property="Margin" Value="15"/>
+            <Setter Property="RowSpacing" Value="0"/>
+            <Setter Property="ColumnSpacing" Value="0"/>
+        </Style>
+        
+    </ContentPage.Resources>
+    
+    <Grid RowDefinitions="*,auto" Margin="0">
+        
+        <ScrollView Grid.Row="0"> 
+            
+            <VerticalStackLayout>
+
+                <!-- Title -->
+                <Label 
+                    Style="{StaticResource title}"
+                    Text="Conteúdo"/>
+
+                <!-- Text Editor -->
+                <Border
+                    Margin="15,0"
+                    StrokeShape="RoundRectangle 15"
+                    Stroke="Black"
+                    StrokeThickness="2"
+                    Padding="10">
+
+                    <Editor
+                        Text="{Binding Text}"
+                        TextColor="Black"
+                        FontSize="20"
+                        AutoSize="TextChanges"
+                        MaximumHeightRequest="200"/>
+
+                </Border>
+                
+                <!-- Font Attributes, Font Size and Text Color-->
+                <HorizontalStackLayout HorizontalOptions="Center">
+
+                    <Border Style="{StaticResource imagesborder}">
+
+                        <ImageButton Source="bold.png" Command="{Binding ApplyBold}"/>
+
+                    </Border>
+
+                    <Border Style="{StaticResource imagesborder}">
+
+                        <ImageButton Source="italic.png" Command="{Binding ApplyItalic}"/>
+
+                    </Border>
+
+                    <Border Style="{StaticResource imagesborder}">
+
+                        <ImageButton Source="underline.png" Command="{Binding ApplyUnderline}"/>
+
+                    </Border>
+
+                    <Border Style="{StaticResource imagesborder}">
+
+                        <ImageButton Source="strikethrough.png" Command="{Binding ApplyStrikethrough}"/>
+
+                    </Border>                    
+
+                </HorizontalStackLayout>
+
+                <!-- Font Size and Text Color -->
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    
+                    <Border
+                        Style="{StaticResource imagesborder}"
+                        Padding="0"
+                        StrokeThickness="0">
+
+                        <ImageButton
+                            Style="{StaticResource imagebutton}"
+                            Source="minus.png"
+                            Command="{Binding DecreaseFontSize}"/>
+
+                    </Border>
+
+                    <Label
+                        x:Name="TextSize"
+                        Text="{Binding Size}"
+                        FontSize="40"
+                        VerticalOptions="Center"
+                        VerticalTextAlignment="Center"/>
+
+                    <Border
+                        Style="{StaticResource imagesborder}"
+                        Padding="0"
+                        StrokeThickness="0">
+
+                        <ImageButton
+                            Style="{StaticResource imagebutton}"
+                            Source="plus.png"
+                            Command="{Binding IncreaseFontSize}"/>
+
+                    </Border>
+
+                    <Border
+                        Style="{StaticResource imagesborder}"
+                        Padding="0">
+
+                        <Button
+                            BackgroundColor="{Binding TextColor}"
+                            VerticalOptions="Center"
+                            Command="{Binding ChangeTextColor}"/>
+
+                    </Border>
+                    
+                </HorizontalStackLayout>
+
+                <!-- Text Alignments -->
+                <HorizontalStackLayout HorizontalOptions="Center">
+
+                    <Border Style="{StaticResource imagesborder}">
+
+                        <ImageButton
+                            Style="{StaticResource imagebutton}"
+                            Source="leftalign.png"
+                            Command="{Binding Left}"/>
+
+                    </Border>
+
+                    <Border Style="{StaticResource imagesborder}">
+
+                        <ImageButton
+                            Style="{StaticResource imagebutton}"
+                            Source="centeralign.png"
+                            Command="{Binding Center}"/>
+
+                    </Border>
+
+                    <Border Style="{StaticResource imagesborder}">
+
+                        <ImageButton
+                            Style="{StaticResource imagebutton}"
+                            Source="rightalign.png"
+                            Command="{Binding Right}"/>
+
+                    </Border>
+
+                    <Border Style="{StaticResource imagesborder}">
+
+                        <ImageButton
+                            Style="{StaticResource imagebutton}"
+                            Source="justifyalign.png"
+                            Command="{Binding Justify}"/>
+
+                    </Border>
+
+                </HorizontalStackLayout>
+
+                <!-- Link -->
+                <Grid
+                    ColumnDefinitions="*,*"
+                    RowDefinitions="*,*"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Center"
+                    Margin="15,0">
+                    
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Text="Link"
+                        Margin="0"
+                        VerticalOptions="Center"
+                        VerticalTextAlignment="Center"
+                        HorizontalOptions="End"
+                        Style="{StaticResource title}"/>
+
+                    <CheckBox
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Start"
+                        Color="Black"
+                        Margin="0"
+                        IsChecked="{Binding IsLink}"/>
+
+                    <Entry
+                        Grid.Row="1"
+                        Grid.ColumnSpan="2"
+                        HorizontalOptions="Fill"
+                        TextColor="Black"
+                        IsVisible="{Binding IsLink}"
+                        Placeholder="https://www.exemplo.com/"
+                        IsSpellCheckEnabled="False"
+                        Keyboard="Url"
+                        MaxLength="200"
+                        Text="{Binding Link}"/>
+
+                </Grid>
+
+                <!-- Margin -->                
+                <Grid
+                    RowDefinitions="*,auto,auto,auto,auto,auto"
+                    ColumnDefinitions="auto,auto,auto,auto,auto"
+                    HorizontalOptions="Center"
+                    ColumnSpacing="10">
+
+                    <Label
+                        Grid.Row="0"
+                        Grid.ColumnSpan="5"
+                        Text="Margens externas"
+                        Style="{StaticResource title}"/>
+
+                    <Border
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        Style="{StaticResource imagesborder}">
+
+                        <Image
+                            Source="arrow.png"
+                            Rotation="-90"/>
+
+                    </Border>
+
+                    <Entry
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Text="{Binding LeftMargin}"
+                        Style="{StaticResource marginandborder}"/>
+
+                    <Border
+                        Grid.Row="3"
+                        Grid.Column="4"
+                        Style="{StaticResource imagesborder}">
+
+                        <Image
+                            Source="arrow.png"
+                            Rotation="90"/>
+
+                    </Border>
+
+                    <Entry
+                        Grid.Row="3"
+                        Grid.Column="3"
+                        Style="{StaticResource marginandborder}"
+                        Text="{Binding RightMargin}"/>
+
+                    <Border
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        Style="{StaticResource imagesborder}">
+
+                        <Image
+                            Source="arrow.png"
+                            Rotation="0"/>
+
+                    </Border>
+
+                    <Entry
+                        Grid.Row="2"
+                        Grid.Column="2"
+                        Text="{Binding TopMargin}"
+                        Style="{StaticResource marginandborder}"/>
+
+                    <Border
+                        Grid.Row="5"
+                        Grid.Column="2"
+                        Style="{StaticResource imagesborder}">
+
+                        <Image
+                            Source="arrow.png"
+                            Rotation="-180"/>
+
+                    </Border>
+
+                    <Entry
+                        Grid.Row="4"
+                        Grid.Column="2"
+                        Text="{Binding BottomMargin}"
+                        Style="{StaticResource marginandborder}"/>
+
+                    <Entry
+                        Grid.Row="3"
+                        Grid.Column="2"
+                        Text="{Binding AllMargin}"
+                        Style="{StaticResource marginandborder}"/>
+
+                </Grid>
+                
+                <!-- Padding -->
+                <Grid
+                    RowDefinitions="*,auto,auto,auto,auto,auto"
+                    ColumnDefinitions="auto,auto,auto,auto,auto"
+                    HorizontalOptions="Center"
+                    ColumnSpacing="10">
+
+                    <Label
+                        Grid.Row="0"
+                        Grid.ColumnSpan="5"
+                        Text="Margens internas"
+                        Style="{StaticResource title}"/>
+
+                    <Border
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        Style="{StaticResource imagesborder}">
+
+                        <Image
+                            Source="arrow.png"
+                            Rotation="90"/>
+
+                    </Border>
+
+                    <Entry
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Text="{Binding LeftPadding}"
+                        Style="{StaticResource marginandborder}"/>
+
+                    <Border
+                        Grid.Row="3"
+                        Grid.Column="4"
+                        Style="{StaticResource imagesborder}">
+
+                        <Image
+                            Source="arrow.png"
+                            Rotation="-90"/>
+
+                    </Border>
+
+                    <Entry
+                        Grid.Row="3"
+                        Grid.Column="3"
+                        Text="{Binding RightPadding}"
+                        Style="{StaticResource marginandborder}"/>
+
+                    <Border
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        Style="{StaticResource imagesborder}">
+
+                        <Image
+                            Source="arrow.png"
+                            Rotation="180"/>
+
+                    </Border>
+
+                    <Entry
+                        Grid.Row="2"
+                        Grid.Column="2"
+                        Text="{Binding TopPadding}"
+                        Style="{StaticResource marginandborder}"/>
+
+                    <Border
+                        Grid.Row="5"
+                        Grid.Column="2"
+                        Style="{StaticResource imagesborder}">
+
+                        <Image
+                            Source="arrow.png"
+                            Rotation="0"/>
+
+                    </Border>
+
+                    <Entry
+                        Grid.Row="4"
+                        Grid.Column="2"
+                        Text="{Binding BottomPadding}"
+                        Style="{StaticResource marginandborder}"/>
+
+                    <Entry
+                        Grid.Row="3"
+                        Grid.Column="2"
+                        Text="{Binding AllPadding}"
+                        Style="{StaticResource marginandborder}"/>
+
+                </Grid>
+
+                <!-- Border -->
+                <Label
+                    Style="{StaticResource title}"
+                    Text="Borda"/>
+
+                <Grid
+                    ColumnDefinitions="105,*,40"
+                    RowDefinitions="*,*,*,*,*"
+                    RowSpacing="5">
+
+                    <Label
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        Text="Espessura:"/>
+
+                    <Slider
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Maximum="10"
+                        Minimum="0"
+                        Value="{Binding StrokeThickness}"/>
+
+                    <Entry
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        Text="{Binding StrokeThicknessText}"/>
+
+                    <Label
+                        Grid.Column="0"
+                        Grid.Row="1"
+                        Text="Curvatura:"/>
+
+                    <Slider
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Maximum="100"
+                        Minimum="0"
+                        Value="{Binding StrokeShapeValue}"/>
+
+                    <Entry
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        Text="{Binding StrokeShapeText}"/>
+
+                    <Label
+                        Grid.Column="0"
+                        Grid.Row="2"
+                        Text="Cor da borda:"/>
+
+                    <Border
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        Style="{StaticResource colorborder}"
+                        BackgroundColor="{Binding BorderColor}">
+
+                        <Button
+                            BackgroundColor="Transparent"
+                            Command="{Binding PickStrokeColorCommand}"/>
+
+                    </Border>
+
+                    <Label
+                        Grid.Column="0"
+                        Grid.Row="3"
+                        Text="Cor de fundo:"/>
+
+                    <Border
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        Style="{StaticResource colorborder}"
+                        BackgroundColor="{Binding BackGroundColor}">
+
+                        <Button
+                            BackgroundColor="Transparent"
+                            Command="{Binding PickBackgroundColorCommand}"/>
+
+                    </Border>
+
+                    <Label
+                        Grid.Row="4"
+                        Grid.Column="0"
+                        Text="Alinhamento:"/>
+
+                    <HorizontalStackLayout
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        Spacing="10">
+
+                        <Border
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            VerticalOptions="Center"
+                            HeightRequest="40"
+                            WidthRequest="40"
+                            Padding="4"
+                            Stroke="Black"
+                            StrokeShape="RoundRectangle 5"
+                            StrokeThickness="2">
+
+                            <ImageButton
+                                VerticalOptions="Center"
+                                Source="arrow.png"
+                                Rotation="-90"
+                                Command="{Binding LeftAlign}"/>
+
+                        </Border>
+
+                        <Border
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            VerticalOptions="Center"
+                            HeightRequest="40"
+                            WidthRequest="40"
+                            Padding="8"
+                            Stroke="Black"
+                            StrokeShape="RoundRectangle 5"
+                            StrokeThickness="2">
+
+                            <ImageButton
+                                VerticalOptions="Center"
+                                Source="dot.png"
+                                Command="{Binding CenterAlign}"/>
+
+                        </Border>
+
+                        <Border
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            VerticalOptions="Center"
+                            HeightRequest="40"
+                            WidthRequest="40"
+                            Padding="4"
+                            Stroke="Black"
+                            StrokeShape="RoundRectangle 5"
+                            StrokeThickness="2">
+
+                            <ImageButton
+                                VerticalOptions="Center"
+                                Source="arrow.png"
+                                Rotation="90"
+                                Command="{Binding RightAlign}"/>
+
+                        </Border>
+
+                    </HorizontalStackLayout>
+
+                </Grid>
+                
+                <!-- Shadow -->
+                <Label
+                    Text="Sombra"
+                    Style="{StaticResource title}"/>
+
+                <Grid
+                    ColumnDefinitions="105,*,40"
+                    RowDefinitions="*,*,*,*,*"
+                    RowSpacing="10">
+
+                    <Label
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        Text="Raio:"/>
+
+                    <Slider
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Maximum="5"
+                        Minimum="0"
+                        Value="{Binding ShadowRadius}"/>
+
+                    <Entry
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        Text="{Binding ShadowRadiusText}"/>
+
+                    <Label
+                        Grid.Column="0"
+                        Grid.Row="1"
+                        Text="Opacidade:"/>
+
+                    <Slider
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Maximum="1"
+                        Minimum="0"
+                        Value="{Binding ShadowOpacity}"/>
+
+                    <Entry
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        Text="{Binding ShadowOpacityText}"/>
+
+                    <Label
+                        Grid.Column="0"
+                        Grid.Row="2"
+                        Text="Offset horizontal:"/>
+
+                    <Slider
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Maximum="100"
+                        Minimum="-100"
+                        Value="{Binding ShadowOffsetX}"/>
+
+                    <Entry
+                        Grid.Row="2"
+                        Grid.Column="2"
+                        Text="{Binding ShadowOffsetXText}"/>
+
+                    <Label
+                        Grid.Column="0"
+                        Grid.Row="3"
+                        Text="Offset vertical:"/>
+
+                    <Slider
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Maximum="100"
+                        Minimum="-100"
+                        Value="{Binding ShadowOffsetY}"/>
+
+                    <Entry
+                        Grid.Row="3"
+                        Grid.Column="2"
+                        Text="{Binding ShadowOffsetYText}"/>
+
+                    <Label
+                        Grid.Column="0"
+                        Grid.Row="4"
+                        Text="Cor:"/>
+
+                    <Border
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        HeightRequest="30"
+                        Margin="15,0,0,0"
+                        StrokeThickness="2"
+                        Stroke="Black"
+                        StrokeShape="RoundRectangle 5"
+                        BackgroundColor="{Binding ShadowColor}">
+
+                        <Button
+                            BackgroundColor="Transparent"
+                            Command="{Binding PickShadowColorCommand}"/>
+
+                    </Border>
+
+                </Grid>
+
+            </VerticalStackLayout>
+            
+        </ScrollView>
+
+        <!-- Preview -->
+        <Border
+            Grid.Row="1"
+            BackgroundColor="Transparent"
+            Stroke="Black"
+            StrokeShape="RoundRectangle 15,15,0,0"
+            Margin="-1,0,-1,-1"
+            HeightRequest="250"
+            IsVisible="{Binding HasText}">
+            
+            <Grid
+                RowDefinitions="auto,*,auto"
+                BackgroundColor="Transparent"
+                Margin="0">
+
+                <!-- Preview -->
+                <Label
+                    Grid.Row="0"
+                    Margin="15,5,15,5"
+                    Text="Pré visualização"
+                    VerticalOptions="Fill"
+                    Style="{StaticResource title}"/>
+
+                <ScrollView
+                    Grid.Row="1"
+                    HorizontalOptions="{Binding HorizontalAlignment}"
+                    BackgroundColor="{Binding PreviewBackgroundColor}"
+                    VerticalOptions="Fill">
+
+                    <VerticalStackLayout>
+                        
+                        <Border
+                            Stroke="{Binding BorderColor}"
+                            StrokeThickness="{Binding StrokeThickness}"
+                            StrokeShape="{Binding StrokeShape}"
+                            Padding="{Binding Padding}"
+                            Margin="{Binding Margin}"
+                            HorizontalOptions="{Binding HorizontalAlignment}"
+                            BackgroundColor="{Binding BackGroundColor}"
+                            VerticalOptions="Center">
+
+                            <Border.Shadow >
+
+                                <Shadow
+                                    Brush="{Binding ShadowColor}"
+                                    Opacity="{Binding ShadowOpacity}"
+                                    Offset="{Binding ShadowOffset}"
+                                    Radius="{Binding ShadowRadius}"/>
+
+                            </Border.Shadow>
+
+                            <Label
+                                FontSize="{Binding Size}"
+                                FontAttributes="{Binding Attributes}"
+                                TextDecorations="{Binding Decorations}"
+                                Text="{Binding Text}"
+                                HorizontalTextAlignment="{Binding TextAlignment}"
+                                VerticalTextAlignment="Center"
+                                TextColor="{Binding TextColor}"/>
+
+                        </Border>
+                        
+                    </VerticalStackLayout>
+
+                </ScrollView>
+
+                <!-- Save Button -->
+                <Button
+                    Grid.Row="2"
+                    x:Name="Save"
+                    Text="Adicionar"
+                    VerticalOptions="End"
+                    FontSize="16"
+                    TextColor="Black"
+                    BackgroundColor="LightCoral"
+                    Margin="15"
+                    Clicked="OnSave"/>
+
+            </Grid>
+            
+        </Border>
+
+    </Grid>
+
+</ContentPage>

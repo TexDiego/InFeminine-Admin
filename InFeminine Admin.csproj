@@ -59,6 +59,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Views\Articles\Article_06.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Maui" Version="11.2.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
@@ -66,22 +70,85 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Views\Articles\Article_06.xaml.cs">
+	    <DependentUpon>Article_06.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Articles\Article_10.xaml.cs">
+	    <DependentUpon>Article_10.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Articles\Article_09.xaml.cs">
+	    <DependentUpon>Article_09.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Articles\Article_08.xaml.cs">
+	    <DependentUpon>Article_08.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Articles\Article_07.xaml.cs">
+	    <DependentUpon>Article_07.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Custom\ContentPicker.xaml.cs">
+	    <DependentUpon>ContentPicker.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\AddArticle.xaml.cs">
+	    <DependentUpon>AddArticle.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\AddImage.xaml.cs">
+	    <DependentUpon>AddImage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\AddText.xaml.cs">
+	    <DependentUpon>AddText.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Views\Articles\Article_01.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Articles\Article_02.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Articles\Article_03.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Articles\Article_04.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Articles\Article_06.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Articles\Article_07.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Articles\Article_08.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Articles\Article_10.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Articles\Article_09.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Articles\Article_05.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Custom\ColorPicker.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Custom\ContentAction.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Home.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\Home_AddArticle.xaml">
+	  <MauiXaml Update="Views\AddArticle.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\Home_AddImage.xaml">
+	  <MauiXaml Update="Views\AddImage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\Home_AddText.xaml">
+	  <MauiXaml Update="Views\AddText.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\Custom\Home_ContentPicker.xaml">
+	  <MauiXaml Update="Views\Custom\ContentPicker.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

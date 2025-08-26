@@ -4,16 +4,21 @@ using System.Diagnostics;
 
 namespace InFeminine_Admin.Views;
 
-public partial class Home_AddText : ContentPage
+public partial class AddText : ContentPage
 {
 	private TaskCompletionSource<IVisualBlock> _tcs;
-    private Home_AddText_ViewModel vm;
+    private AddText_ViewModel vm;
 
-    public Home_AddText()
+    public AddText()
 	{
 		InitializeComponent();
         vm = new();
 		BindingContext = vm;
+    }
+
+    public AddText(IVisualBlock block) : this()
+    {
+        vm.SetBlock(block);
     }
 
     public Task<IVisualBlock> GetBlockAsync()

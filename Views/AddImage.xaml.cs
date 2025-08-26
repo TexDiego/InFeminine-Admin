@@ -1,18 +1,25 @@
 using InFeminine_Admin.Interfaces;
+using InFeminine_Admin.Models;
 using InFeminine_Admin.ViewModels;
 
 namespace InFeminine_Admin.Views;
 
-public partial class Home_AddImage : ContentPage
+public partial class AddImage : ContentPage
 {
-    private readonly Home_AddImage_ViewModel vm;
+    private readonly AddImage_ViewModel vm;
     private TaskCompletionSource<IVisualBlock> _tcs;
+    private ImageBlock _blockToEdit;
 
-    public Home_AddImage()
+    public AddImage()
     {
         InitializeComponent();
         vm = new();
         BindingContext = vm;
+    }
+
+    public AddImage(ImageBlock block) : this()
+    {
+        _blockToEdit = block;
     }
 
     public Task<IVisualBlock> GetBlockAsync()
@@ -26,6 +33,17 @@ public partial class Home_AddImage : ContentPage
         var bloco = vm.CreateBlock();
         _tcs.SetResult(bloco);
         await Navigation.PopAsync();
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+
+        if (_blockToEdit is not null)
+        {
+            vm.SetBlock(_blockToEdit);
+            _blockToEdit = null;
+        }
     }
 
     protected override void OnDisappearing()

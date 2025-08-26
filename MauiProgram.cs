@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using InFeminine_Admin.ViewModels;
 using CommunityToolkit.Maui;
+using InFeminine_Admin.Repositories;
 
 namespace InFeminine_Admin
 {
@@ -23,9 +24,10 @@ namespace InFeminine_Admin
 #endif
 
             // Registering the ViewModels
-            builder.Services.AddSingleton<Home_ViewModel>();
-
-            builder.Services.AddTransient<Home_AddText_ViewModel>();
+            builder.Services.AddTransient<Home_ViewModel>();
+            builder.Services.AddTransient<AddText_ViewModel>();
+            builder.Services.AddTransient<AddArticle_ViewModel>();
+            builder.Services.AddTransient<AddImage_ViewModel>();
 
             return builder.Build();
         }

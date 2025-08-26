@@ -1,23 +1,44 @@
 ﻿using InFeminine_Admin.Interfaces;
+using InFeminine_Admin.ViewModels;
+using InFeminine_Admin.Views;
+using Microsoft.Maui.Controls.Shapes;
+using System.Diagnostics;
 
 namespace InFeminine_Admin.Models
 {
     public class ImageBlock : IVisualBlock
     {
+
+        // ImageBlock
+        public Guid Guid { get; } = Guid.NewGuid();
+        public Action<IVisualBlock>? ActionRequested { get; set; }
+        public View? ViewReference { get; set; }
+
+
+        // Image properties
         public ImageSource? ImageSource { get; set; }
-        public Aspect Aspect { get; set; }
-        public double Width { get; set; }
-        public double Height { get; set; }
-        public double Rotation { get; set; }
-        public double Opacity { get; set; }
-        public double ScaleX { get; set; }
-        public double ScaleY { get; set; }
-        public double Thickness { get; set; }
-        public IShape CornerRadius { get; set; }
+        public Aspect Aspect { get; set; } = Aspect.AspectFit;
+        public double Width { get; set; } = 100;
+        public double Height { get; set; } = 100;
+        public int Rotation { get; set; } = 0;
+        public double Opacity { get; set; } = 1;
+        public double ScaleX { get; set; } = 1;
+        public double ScaleY { get; set; } = 1;
+
+        // Border properties
+        public double Thickness { get; set; } = 0;
+        public IShape CornerRadius { get; set; } = new RoundRectangle { CornerRadius = new CornerRadius(0) };
         public Color StrokeColor { get; set; } = Colors.Transparent;
         public Color BackGroundColor { get; set; } = Colors.Transparent;
         public LayoutOptions HorizontalOptions { get; set; } = LayoutOptions.Center;
         public Thickness Margin { get; set; } = new Thickness(5, 5, 5, 5);
+        public Thickness Padding { get; set; } = 0;
+
+        // Shadow properties
+        public float ShadowRadius { get; set; } = 0f;
+        public Color ShadowColor { get; set; } = Colors.Transparent;
+        public float ShadowOpacity { get; set; } = 0f;
+        public Point ShadowOffset { get; set; } = new Point(0, 0);
 
         public View BuildView()
         {
@@ -34,7 +55,7 @@ namespace InFeminine_Admin.Models
             var container = new Border
             {
                 Content = image,
-                Padding = 0,
+                Padding = Padding,
                 Stroke = StrokeColor,
                 StrokeThickness = Thickness,
                 StrokeShape = CornerRadius,
@@ -42,22 +63,28 @@ namespace InFeminine_Admin.Models
                 HeightRequest = Height,
                 BackgroundColor = BackGroundColor,
                 HorizontalOptions = HorizontalOptions,
-                Margin = Margin
+                Margin = Margin,
+
+                Shadow = new Shadow
+                {
+                    Radius = ShadowRadius,
+                    Brush = ShadowColor,
+                    Opacity = ShadowOpacity,
+                    Offset = ShadowOffset
+                }
             };
 
-            var gesture = new TapGestureRecognizer { NumberOfTapsRequired = 2 };
-            gesture.Tapped += async (s, e) =>
+            var actiongesture = new TapGestureRecognizer { NumberOfTapsRequired = 2 };
+            actiongesture.Tapped += (s, e) =>
             {
-                var confirmar = await Application.Current.MainPage.DisplayAlert(
-                    "Remover imagem?",
-                    "Deseja remover esta imagem?",
-                    "Sim", "Cancelar");
-
-                if (confirmar && container.Parent is Layout parent)
-                    parent.Children.Remove(container);
+                Debug.WriteLine("Action called");
+                ActionRequested?.Invoke(this);
             };
 
-            container.GestureRecognizers.Add(gesture);
+
+            container.GestureRecognizers.Add(actiongesture);
+            ViewReference = container;
+            container.BindingContext = this;
 
             return container;
         }

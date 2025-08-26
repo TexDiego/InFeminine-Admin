@@ -9,12 +9,15 @@ namespace InFeminine_Admin.ViewModels
         [ObservableProperty] private int red = 255;
         [ObservableProperty] private int green = 255;
         [ObservableProperty] private int blue = 255;
-        [ObservableProperty] private string hexColor = "#FFFFFF";
+        [ObservableProperty] private int alpha = 255;
+
+        [ObservableProperty] private string hexColor = "#FFFFFFFF";
         [ObservableProperty] private Color previewColor = Colors.White;
 
         [ObservableProperty] private string redText = "255";
         [ObservableProperty] private string greenText = "255";
         [ObservableProperty] private string blueText = "255";
+        [ObservableProperty] private string alphaText = "255";
 
         [ObservableProperty] private Color validColor = Colors.Green;
 
@@ -31,19 +34,25 @@ namespace InFeminine_Admin.ViewModels
         partial void OnRedChanged(int value)
         {
             RedText = value.ToString();
-            UpdateFromRgb();
+            UpdateFromRgba();
         }
 
         partial void OnGreenChanged(int value)
         {
             GreenText = value.ToString();
-            UpdateFromRgb();
+            UpdateFromRgba();
         }
 
         partial void OnBlueChanged(int value)
         {
             BlueText = value.ToString();
-            UpdateFromRgb();
+            UpdateFromRgba();
+        }
+
+        partial void OnAlphaChanged(int value)
+        {
+            AlphaText = value.ToString();
+            UpdateFromRgba();
         }
 
         partial void OnRedTextChanged(string value)
@@ -64,39 +73,50 @@ namespace InFeminine_Admin.ViewModels
                 Blue = parsed;
         }
 
+        partial void OnAlphaTextChanged(string value)
+        {
+            if (int.TryParse(value, out int parsed) && parsed >= 0 && parsed <= 255)
+                Alpha = parsed;
+        }
+
         partial void OnHexColorChanged(string value)
         {
-            if (string.IsNullOrWhiteSpace(value) || value.Length < 7)
-            {
-                ValidColor = Colors.Red; // Adicionei uma propriedade para indicar a cor de validação com binding em uma border em volta da entry do HexCode
+            ValidColor = Colors.Red;
+
+            if (string.IsNullOrWhiteSpace(value))
                 return;
-            }
 
             string hex = value.Trim().Replace("#", "");
 
-            if (Regex.IsMatch(hex, @"^[0-9a-fA-F]{6}$"))
+            if (hex.Length == 8 && Regex.IsMatch(hex, "^[0-9a-fA-F]{8}$"))
             {
-                if (int.TryParse(hex.Substring(0, 2), NumberStyles.HexNumber, null, out int r) &&
-                    int.TryParse(hex.Substring(2, 2), NumberStyles.HexNumber, null, out int g) &&
-                    int.TryParse(hex.Substring(4, 2), NumberStyles.HexNumber, null, out int b))
+                try
                 {
+                    byte r = byte.Parse(hex.Substring(0, 2), NumberStyles.HexNumber);
+                    byte g = byte.Parse(hex.Substring(2, 2), NumberStyles.HexNumber);
+                    byte b = byte.Parse(hex.Substring(4, 2), NumberStyles.HexNumber);
+                    byte a = byte.Parse(hex.Substring(6, 2), NumberStyles.HexNumber);
+
                     Red = r;
                     Green = g;
                     Blue = b;
-                    PreviewColor = Color.FromRgb(r, g, b);
+                    Alpha = a;
+
+                    PreviewColor = Color.FromRgba(r, g, b, a);
                     ValidColor = Colors.Green;
                 }
-            }
-            else
-            {
-                ValidColor = Colors.Red;
+                catch
+                {
+                    // Parsing falhou, mantém cor inválida
+                }
             }
         }
 
-        private void UpdateFromRgb()
+
+        private void UpdateFromRgba()
         {
-            HexColor = $"#{Red:X2}{Green:X2}{Blue:X2}";
-            PreviewColor = Color.FromRgb(Red, Green, Blue);
+            HexColor = $"#{Red:X2}{Green:X2}{Blue:X2}{Alpha:X2}";
+            PreviewColor = Color.FromRgba(Red, Green, Blue, Alpha);
         }
     }
 }
