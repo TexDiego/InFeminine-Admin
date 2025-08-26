@@ -23,7 +23,7 @@
 
             <RadioButton Content="Imagem" TextColor="Black" FontSize="14" CheckedChanged="RadioButton_CheckedChanged"/>
 
-            <RadioButton Content="Artigo" TextColor="Black" FontSize="14" CheckedChanged="RadioButton_CheckedChanged"/>
+            <RadioButton Content="Carrossel" TextColor="Black" FontSize="14" CheckedChanged="RadioButton_CheckedChanged"/>
 
             <Button
                 Text="Prosseguir"

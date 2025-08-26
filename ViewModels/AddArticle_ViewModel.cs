@@ -244,6 +244,7 @@ namespace InFeminine_Admin.ViewModels
                 if (pages.Value == true)
                 {
                     GlobalVariables.PagesUsed[pages.Key] = true;
+                    GlobalVariables.Pages[pages.Key - 1].Title = Buttons.FirstOrDefault(b => b.Name == $"Pagina{pages.Key}")?.Text ?? $"Pagina{pages.Key}";
                     continue;
                 }
             }

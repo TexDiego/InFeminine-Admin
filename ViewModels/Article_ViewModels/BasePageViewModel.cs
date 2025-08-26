@@ -12,6 +12,7 @@ namespace InFeminine_Admin.ViewModels.Article_ViewModels
     {
         [ObservableProperty] private Layout? contentLayout;
         [ObservableProperty] private Color backGroundColor = GlobalVariables.BackgroundColor;
+        [ObservableProperty] private string title = "Artigo";
 
         public Dictionary<Guid, IVisualBlock> _blocks = new();
 
@@ -28,7 +29,7 @@ namespace InFeminine_Admin.ViewModels.Article_ViewModels
             {
                 switch (item)
                 {
-                    case "Artigo":
+                    case "Carrossel":
                         var articlepage = new AddArticle();
                         var articleTask = articlepage.GetBlockAsync();
                         await Application.Current.MainPage.Navigation.PushAsync(articlepage);
