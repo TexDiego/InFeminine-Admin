@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="InFeminine_Admin.Views.Home"
              Title="Página inicial"
-             NavigationPage.HasNavigationBar="False">
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="{Binding BackgroundColor}">
 
     <Grid
         RowDefinitions="auto,*"

@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using InFeminine_Admin.Interfaces;
 using InFeminine_Admin.Models;
 using InFeminine_Admin.Repositories;
-using InFeminine_Admin.Views.Articles;
 using InFeminine_Admin.Views.Custom;
 using System.Collections.ObjectModel;
 
@@ -171,6 +170,10 @@ namespace InFeminine_Admin.ViewModels
         }
 
 
+
+
+
+
         public IVisualBlock CreateBlock()
         {
             var block = new ArticleBlock
@@ -201,7 +204,8 @@ namespace InFeminine_Admin.ViewModels
                     HeightRequest = vmBtn.Height,
                     Command = vmBtn.Command
                 });
-            }            
+                GlobalVariables.PageTitles[Convert.ToInt32(vmBtn.Name.Replace("Pagina", ""))] = vmBtn.Text;
+            }
 
             return block;
         }
@@ -235,6 +239,8 @@ namespace InFeminine_Admin.ViewModels
                     Command = GetCommand(Convert.ToInt32(btn.Name.Replace("Pagina", "")))
                 });
             }
+
+            Height = Block.HeightRequest - 10;
         }
 
         public void OnSave()

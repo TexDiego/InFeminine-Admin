@@ -13,7 +13,7 @@ namespace InFeminine_Admin.Models
         public List<Article> Pages { get; set; }
         public bool Loop { get; set; }
         public int HeightRequest { get; set; }
-        public Thickness Margin { get; set; } 
+        public Thickness Margin { get; set; }
 
 
         public View BuildView()

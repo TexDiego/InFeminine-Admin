@@ -19,6 +19,7 @@ namespace InFeminine_Admin.ViewModels.Article_ViewModels
         public Command AddContent => new(async () => await AddContentAsync());
         public Command ShowColorPicker => new(async () => await ShowColorPickerAsync());
         public Command EditContent => new(async (View) => await EditContentAsync(View as IVisualBlock));
+        public Command Return => new(async () => await Application.Current.MainPage.Navigation.PopAsync());
 
 
         protected virtual async Task AddContentAsync()

@@ -2,14 +2,45 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="InFeminine_Admin.Views.Articles.Article_10"
-             Title="Article_10">
+             BackgroundColor="{Binding BackgroundColor}"
+             NavigationPage.HasNavigationBar="False">
 
     <Grid
-        RowDefinitions="auto,*"
+        RowDefinitions="auto,auto,*"
         BackgroundColor="{Binding BackGroundColor}">
 
         <Grid
             Grid.Row="0"
+            ColumnDefinitions="auto,*"
+            ColumnSpacing="15"
+            Margin="15,10,15,0">
+
+            <Border
+                Grid.Column="0"
+                HeightRequest="20"
+                WidthRequest="20"
+                StrokeThickness="0">
+
+                <ImageButton
+                    BackgroundColor="Transparent"
+                    Source="arrow.png"
+                    Rotation="-90"
+                    Command="{Binding Return}"/>
+
+            </Border>
+
+            <Label
+                Grid.Column="1"
+                Text="{Binding Title}"
+                FontAttributes="Bold"
+                VerticalOptions="Center"
+                FontSize="16"
+                TextColor="Black"/>
+
+        </Grid>
+
+        <Grid
+            Grid.Row="1"
             ColumnDefinitions="*,*"
             Margin="15"
             ColumnSpacing="15">
@@ -35,7 +66,7 @@
         </Grid>
 
         <ScrollView
-            Grid.Row="1">
+            Grid.Row="2">
 
             <VerticalStackLayout 
                 x:Name="DynamicContentArea"
